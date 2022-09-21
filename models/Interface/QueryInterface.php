@@ -18,5 +18,5 @@ interface QueryInterface
 
     public function getByEmailOrName($email, $name);
 
-    public function resultSearch($conditions,$startFrom, $recordPerPage);
+    public function resultSearch($conditions, $orerBy, $startFrom, $recordPerPage);
 }

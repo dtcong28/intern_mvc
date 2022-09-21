@@ -11,6 +11,8 @@
                 <label>Name *</label>
                 <input type="text" class="form-control" name="searchName">
                 <input type="hidden" value="1" name="page">
+                <input type="hidden" name="column" value="id">
+                <input type="hidden" name="order" value="asc">
             </div>
             <div class="row">
                 <button type="reset" class="btn btn-secondary col-1">Reset</button>
@@ -22,17 +24,45 @@
     <table class="table mt-5">
         <thead class="thead-dark">
         <tr>
-            <th scope="col">ID</th>
+            <th scope="col">ID
+                <?php if (!empty($results)): ?>
+                    <a href="/?controller=<?php echo $_GET['controller'] ?>&action=<?php echo $_GET['action'] ?>&searchEmail=<?php echo $_GET['searchEmail'] ?>&searchName=<?php echo $_GET['searchName'] ?>&page=<?php echo $_GET['page'] ?>&column=id&order=<?php echo $results['ascOrDesc'] ?>">
+                        <i class="fa fa-sort<?php echo $results['column'] == 'id' ? '-' . $results['sortOrder'] : ''; ?>"
+                           aria-hidden="true"></i>
+                    </a>
+                <?php endif; ?>
+            </th>
             <th scope="col">Avatar</th>
-            <th scope="col">Name</th>
-            <th scope="col">Email</th>
-            <th scope="col">Role</th>
+            <th scope="col">Name
+                <?php if (!empty($results)): ?>
+                    <a href="/?controller=<?php echo $_GET['controller'] ?>&action=<?php echo $_GET['action'] ?>&searchEmail=<?php echo $_GET['searchEmail'] ?>&searchName=<?php echo $_GET['searchName'] ?>&page=<?php echo $_GET['page'] ?>&column=name&order=<?php echo $results['ascOrDesc'] ?>">
+                        <i class="fa fa-sort<?php echo $results['column'] == 'name' ? '-' . $results['sortOrder'] : ''; ?>"
+                           aria-hidden="true"></i>
+                    </a>
+                <?php endif; ?>
+            </th>
+            <th scope="col">Email
+                <?php if (!empty($results)): ?>
+                    <a href="/?controller=<?php echo $_GET['controller'] ?>&action=<?php echo $_GET['action'] ?>&searchEmail=<?php echo $_GET['searchEmail'] ?>&searchName=<?php echo $_GET['searchName'] ?>&page=<?php echo $_GET['page'] ?>&column=email&order=<?php echo $results['ascOrDesc'] ?>">
+                        <i class="fa fa-sort<?php echo $results['column'] == 'email' ? '-' . $results['sortOrder'] : ''; ?>"
+                           aria-hidden="true"></i>
+                    </a>
+                <?php endif; ?>
+            </th>
+            <th scope="col">Role
+                <?php if (!empty($results)): ?>
+                    <a href="/?controller=<?php echo $_GET['controller'] ?>&action=<?php echo $_GET['action'] ?>&searchEmail=<?php echo $_GET['searchEmail'] ?>&searchName=<?php echo $_GET['searchName'] ?>&page=<?php echo $_GET['page'] ?>&column=role_type&order=<?php echo $results['ascOrDesc'] ?>">
+                        <i class="fa fa-sort<?php echo $results['column'] == 'role_type' ? '-' . $results['sortOrder'] : ''; ?>"
+                           aria-hidden="true"></i>
+                    </a>
+                <?php endif; ?>
+            </th>
             <th scope="col">Action</th>
         </tr>
         </thead>
         <tbody>
         <?php if (!empty($results)) : ?>
-            <?php require_once ('views/elements/pagination.php');?>
+            <?php require_once('views/elements/pagination.php'); ?>
             <?php foreach ($results['data'] as $value) : ?>
                 <tr>
                     <th scope="row"><?= $value->id ?></th>

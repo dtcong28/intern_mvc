@@ -149,17 +149,22 @@ class AdminController extends BaseController
         $searchName = isset($_GET['searchName']) ? trim($_GET['searchName']) : '';
         $conditions = ['searchEmail' => $searchEmail, 'searchName' => $searchName];
 
-//        $columns = ['id', 'name', 'email', 'role_type'];
-//        $column = isset($_GET['column']) && in_array($_GET['column'], $columns, true) ? $_GET['column'] : $columns[0];
-//        $sort_order = isset($_GET['order']) && $_GET['order'] == 'desc' ? 'desc' : 'asc';
-//        $asc_or_desc = $sort_order == 'asc' ? 'desc' : 'asc';
+        $columns = ['id', 'name', 'email', 'role_type'];
+        $column = isset($_GET['column']) && in_array($_GET['column'], $columns, true) ? $_GET['column'] : $columns[0];
+        $sortOrder = isset($_GET['order']) && $_GET['order'] == 'desc' ? 'desc' : 'asc';
+        $ascOrDesc = $sortOrder == 'asc' ? 'desc' : 'asc';
+
+        $orderBy = ['column' => $column, 'sortOrder' => $sortOrder];
 
         if (isset($_GET['searchEmail']) && isset($_GET['searchName'])) {
-            $dataResults = $this->model->resultSearch($conditions, $start_from, RECORDPERPAGE);
-            $total_pages = ceil($dataResults['count'] / RECORDPERPAGE);
+            $dataResults = $this->model->resultSearch($conditions, $orderBy, $start_from, RECORDPERPAGE);
+            $totalPages = ceil($dataResults['count'] / RECORDPERPAGE);
             $results = [
                 'data' => $dataResults['data'],
-                'total_pages' => $total_pages,
+                'totalPages' => $totalPages,
+                'ascOrDesc' => $ascOrDesc,
+                'sortOrder' => $sortOrder,
+                'column' => $column
             ];
             $this->render('search', ['results' => $results], $title = 'Admin-Search');
         } else {

@@ -92,54 +92,34 @@ abstract class BaseModel implements QueryInterface
     }
 
 
-    public function resultSearch($conditions,$startFrom, $recordPerPage) {
+    public function resultSearch($conditions, $orerBy, $startFrom, $recordPerPage)
+    {
         $searchName = isset($conditions["searchName"]) ? $conditions["searchName"] : "";
         $searchEmail = isset($conditions["searchEmail"]) ? $conditions["searchEmail"] : "";
 
         $table = static::$table;
         $conditionStr = " del_flag =:_del_flag";
+
+        $sqlOrder = 'order by ' . $orerBy['column'] . ' ' . $orerBy['sortOrder'];
+
         $binds = ['_del_flag' => ACTIVE];
         if (!empty($searchEmail) && empty($searchName)) {
-            $conditionStr = "WHERE email LIKE :_email AND" .$conditionStr;
-            $binds = array_merge($binds,['_email' => $searchEmail ]);
+            $conditionStr = "WHERE email LIKE :_email AND" . $conditionStr;
+            $binds = array_merge($binds, ['_email' => $searchEmail]);
         } elseif (empty($searchEmail) && !empty($searchName)) {
-            $conditionStr = "WHERE name LIKE :_name AND" .$conditionStr;
-            $binds = array_merge($binds,['_name' => $searchName]);
+            $conditionStr = "WHERE name LIKE :_name AND" . $conditionStr;
+            $binds = array_merge($binds, ['_name' => $searchName]);
         } elseif (!empty($searchEmail) && !empty($searchName)) {
-            $conditionStr = "WHERE name LIKE :_name AND email LIKE :_email AND ".$conditionStr;
-            $binds = array_merge($binds,['_email' => $searchEmail,'_name' => $searchName]);;
+            $conditionStr = "WHERE name LIKE :_name AND email LIKE :_email AND " . $conditionStr;
+            $binds = array_merge($binds, ['_email' => $searchEmail, '_name' => $searchName]);;
         } else {
-            $conditionStr = "WHERE ".$conditionStr;
+            $conditionStr = "WHERE " . $conditionStr;
         }
 
-        $sql = "SELECT * FROM {$table} $conditionStr ";
-        $count = $this->db->query($sql,$binds)->count();
-        $data = $this->db->query( "$sql LIMIT $startFrom,$recordPerPage", $binds)->results();
+        $sql = "SELECT * FROM {$table} $conditionStr $sqlOrder";
+        $count = $this->db->query($sql, $binds)->count();
+        $data = $this->db->query("$sql LIMIT $startFrom,$recordPerPage", $binds)->results();
         return ["data" => $data, "count" => $count];
     }
-
-    // public function findById($id)
-    // {
-    //     $db = DB::getInstance();
-    //     $table = static::$table;
-    //     $sql = "SELECT * FROM {$table} WHERE id = $id AND del_flag = 0";
-    //     return $db->query($sql)->results();
-    // }
-
-    // public function findByEmailAndName($name, $email)
-    // {
-    //     $db = DB::getInstance();
-    //     $table = static::$table;
-    //     $sql = "SELECT * FROM {$table} WHERE name LIKE '%$name%' AND email like '%$email%' AND del_flag = 0";
-    //     return $db->query($sql)->results();
-    // }
-
-    // public function findByEmail($email)
-    // {
-    //     $db = DB::getInstance();
-    //     $table = static::$table;
-    //     $sql = "SELECT * FROM {$table} WHERE email like '%$email%' AND del_flag = 0";
-    //     return $db->query($sql)->results();
-    // }
 
 }

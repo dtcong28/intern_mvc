@@ -11,6 +11,8 @@
                 <label>Name *</label>
                 <input type="text" class="form-control" name="searchName">
                 <input type="hidden" value="1" name="page">
+                <input type="hidden" name="column" value="id">
+                <input type="hidden" name="order" value="asc">
             </div>
             <div class="row">
                 <button type="reset" class="btn btn-secondary col-1">Reset</button>
@@ -22,11 +24,39 @@
     <table class="table mt-5">
         <thead class="thead-dark">
         <tr>
-            <th scope="col">ID</th>
+            <th scope="col">ID
+                <?php if (!empty($results)): ?>
+                    <a href="/?controller=<?php echo $_GET['controller'] ?>&action=<?php echo $_GET['action'] ?>&searchEmail=<?php echo $_GET['searchEmail'] ?>&searchName=<?php echo $_GET['searchName'] ?>&page=<?php echo $_GET['page'] ?>&column=id&order=<?php echo $results['ascOrDesc'] ?>">
+                        <i class="fa fa-sort<?php echo $results['column'] == 'id' ? '-' . $results['sortOrder'] : ''; ?>"
+                           aria-hidden="true"></i>
+                    </a>
+                <?php endif; ?>
+            </th>
             <th scope="col">Avatar</th>
-            <th scope="col">Name</th>
-            <th scope="col">Email</th>
-            <th scope="col">Status</th>
+            <th scope="col">Name
+                <?php if (!empty($results)): ?>
+                    <a href="/?controller=<?php echo $_GET['controller'] ?>&action=<?php echo $_GET['action'] ?>&searchEmail=<?php echo $_GET['searchEmail'] ?>&searchName=<?php echo $_GET['searchName'] ?>&page=<?php echo $_GET['page'] ?>&column=name&order=<?php echo $results['ascOrDesc'] ?>">
+                        <i class="fa fa-sort<?php echo $results['column'] == 'name' ? '-' . $results['sortOrder'] : ''; ?>"
+                           aria-hidden="true"></i>
+                    </a>
+                <?php endif; ?>
+            </th>
+            <th scope="col">Email
+                <?php if (!empty($results)): ?>
+                    <a href="/?controller=<?php echo $_GET['controller'] ?>&action=<?php echo $_GET['action'] ?>&searchEmail=<?php echo $_GET['searchEmail'] ?>&searchName=<?php echo $_GET['searchName'] ?>&page=<?php echo $_GET['page'] ?>&column=email&order=<?php echo $results['ascOrDesc'] ?>">
+                        <i class="fa fa-sort<?php echo $results['column'] == 'email' ? '-' . $results['sortOrder'] : ''; ?>"
+                           aria-hidden="true"></i>
+                    </a>
+                <?php endif; ?>
+            </th>
+            <th scope="col">Status
+                <?php if (!empty($results)): ?>
+                    <a href="/?controller=<?php echo $_GET['controller'] ?>&action=<?php echo $_GET['action'] ?>&searchEmail=<?php echo $_GET['searchEmail'] ?>&searchName=<?php echo $_GET['searchName'] ?>&page=<?php echo $_GET['page'] ?>&column=status&order=<?php echo $results['ascOrDesc'] ?>">
+                        <i class="fa fa-sort<?php echo $results['column'] == 'status' ? '-' . $results['sortOrder'] : ''; ?>"
+                           aria-hidden="true"></i>
+                    </a>
+                <?php endif; ?>
+            </th>
             <th scope="col">Action</th>
         </tr>
         </thead>
@@ -37,13 +67,13 @@
                 <tr>
                     <th scope="row"><?= $value->id ?></th>
                     <td>
-                        <?php if(str_contains($value->avatar,'https://platform-lookaside.fbsbx.com/platform/profilepic')):?>
-                        <img style="width: 50px;"
-                             src="<?php echo $value->avatar ?>">
+                        <?php if (str_contains($value->avatar, 'https://platform-lookaside.fbsbx.com/platform/profilepic')): ?>
+                            <img style="width: 50px;"
+                                 src="<?php echo $value->avatar ?>">
                         <?php else: ?>
                             <img style="width: 50px;"
                                  src="assets/upload/user/<?php echo $value->id . '/' . $value->avatar; ?>">
-                        <?php endif;?>
+                        <?php endif; ?>
                     </td>
                     <td><?php echo $value->name ?></td>
                     <td><?php echo $value->email ?></td>

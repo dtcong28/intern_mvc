@@ -17,6 +17,7 @@
             integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <title>
         <?php echo isset($title) ? $title : 'Paraline' ?>
     </title>

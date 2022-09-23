@@ -6,6 +6,7 @@ require_once('db.php');
 require_once('config/constMessage.php');
 require_once('helpers/session.php');
 require_once('vendor/autoload.php');
+// require_once('helpers/checkLogin.php');
 
 if (isset($_GET['controller'])) {
     $controller = $_GET['controller'];
@@ -15,7 +16,8 @@ if (isset($_GET['controller'])) {
         $action = 'index';
     }
 } else {
-    $controller = 'admin';
-    $action = 'home';
+    $controller = 'authFE';
+    $action = 'login';
 }
 require_once('routes.php');
+require_once('helpers/permission.php');

@@ -1,6 +1,4 @@
-<h1>Hello profile</h1>
-
-<a href="/?controller=user&action=logout">Logout</a>
+<a href="/?controller=authFE&action=logout">Logout</a>
 <div class="row">
     <div class="col-md-8 offset-md-2">
         <h2>My profile</h2>

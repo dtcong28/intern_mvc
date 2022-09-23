@@ -27,6 +27,8 @@ define('PATH_TO_BLADE', 'views/elements/');
 
 define('RECORDPERPAGE', '4');
 
+define('BACK_END', 'BE');
+define('FRONT_END', 'FE');
 
 
 

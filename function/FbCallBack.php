@@ -1,13 +1,7 @@
 <?php
 if (!function_exists('FbCallBack')) {
-    function FbCallBack($fb,$helper)
+    function FbCallBack($fb, $helper)
     {
-//        $fb = new Facebook\Facebook([
-//            'app_id' => APP_ID,
-//            'app_secret' => APP_SECRET,
-//            'default_graph_version' => DEFAULT_GRAPH_VERSION
-//        ]);
-//        $helper = $fb->getRedirectLoginHelper();
         if (isset($_GET['state'])) {
             $helper->getPersistentDataHandler()->set('state', $_GET['state']);
         }
@@ -63,4 +57,3 @@ if (!function_exists('FbCallBack')) {
         return $fbUser;
     }
 }
-

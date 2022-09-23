@@ -25,7 +25,7 @@
         <thead class="thead-dark">
         <tr>
             <th scope="col">ID
-                <?php if (!empty($results)): ?>
+                <?php if (!empty($results['data'])): ?>
                     <a href="/?controller=<?php echo $_GET['controller'] ?>&action=<?php echo $_GET['action'] ?>&searchEmail=<?php echo $_GET['searchEmail'] ?>&searchName=<?php echo $_GET['searchName'] ?>&page=<?php echo $_GET['page'] ?>&column=id&order=<?php echo $results['ascOrDesc'] ?>">
                         <i class="fa fa-sort<?php echo $results['column'] == 'id' ? '-' . $results['sortOrder'] : ''; ?>"
                            aria-hidden="true"></i>
@@ -34,7 +34,7 @@
             </th>
             <th scope="col">Avatar</th>
             <th scope="col">Name
-                <?php if (!empty($results)): ?>
+                <?php if (!empty($results['data'])): ?>
                     <a href="/?controller=<?php echo $_GET['controller'] ?>&action=<?php echo $_GET['action'] ?>&searchEmail=<?php echo $_GET['searchEmail'] ?>&searchName=<?php echo $_GET['searchName'] ?>&page=<?php echo $_GET['page'] ?>&column=name&order=<?php echo $results['ascOrDesc'] ?>">
                         <i class="fa fa-sort<?php echo $results['column'] == 'name' ? '-' . $results['sortOrder'] : ''; ?>"
                            aria-hidden="true"></i>
@@ -42,7 +42,7 @@
                 <?php endif; ?>
             </th>
             <th scope="col">Email
-                <?php if (!empty($results)): ?>
+                <?php if (!empty($results['data'])): ?>
                     <a href="/?controller=<?php echo $_GET['controller'] ?>&action=<?php echo $_GET['action'] ?>&searchEmail=<?php echo $_GET['searchEmail'] ?>&searchName=<?php echo $_GET['searchName'] ?>&page=<?php echo $_GET['page'] ?>&column=email&order=<?php echo $results['ascOrDesc'] ?>">
                         <i class="fa fa-sort<?php echo $results['column'] == 'email' ? '-' . $results['sortOrder'] : ''; ?>"
                            aria-hidden="true"></i>
@@ -50,7 +50,7 @@
                 <?php endif; ?>
             </th>
             <th scope="col">Status
-                <?php if (!empty($results)): ?>
+                <?php if (!empty($results['data'])): ?>
                     <a href="/?controller=<?php echo $_GET['controller'] ?>&action=<?php echo $_GET['action'] ?>&searchEmail=<?php echo $_GET['searchEmail'] ?>&searchName=<?php echo $_GET['searchName'] ?>&page=<?php echo $_GET['page'] ?>&column=status&order=<?php echo $results['ascOrDesc'] ?>">
                         <i class="fa fa-sort<?php echo $results['column'] == 'status' ? '-' . $results['sortOrder'] : ''; ?>"
                            aria-hidden="true"></i>
@@ -61,7 +61,7 @@
         </tr>
         </thead>
         <tbody>
-        <?php if (!empty($results)) : ?>
+        <?php if (!empty($results['data'])) : ?>
             <?php require_once('views/elements/pagination.php'); ?>
             <?php foreach ($results['data'] as $value) : ?>
                 <tr>

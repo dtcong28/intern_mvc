@@ -46,7 +46,8 @@ class AdminController extends BaseController
                 Session::msg(CREATE_SUCCESSFUL, 'success');
                 $this->redirect('/?controller=admin&action=search');
             } else {
-                $this->render('create', [], $title = 'Admin-Create');
+                // $this->render('create', [], $title = 'Admin-Create');
+                $this->redirect('/?controller=admin&action=create');
             }
         } else {
             $this->render('form', [], $title = 'Admin-Create');
@@ -56,88 +57,60 @@ class AdminController extends BaseController
     public function edit()
     {
         $id = isset($_GET['id']) ? $_GET['id'] : '';
-        $fields = ['id', 'avatar', 'name', 'email', 'role_type', 'password'];
-        $oldData = $this->model->getById($id, $fields)[0];
-        $path = PATH_UPLOAD_ADMIN . $id;
 
-        if (!empty($_POST)) {
-            $check = $this->validated->validateEdit($_POST, $_FILES["avatar"]);
+        $result = $this->model->getById($id, ['id']);
+        
+        // them && session de check khi nguoi dung past link url de truy cap ma chua login
+        if ($result && isset($_SESSION['admin'])) {
+            $fields = ['id', 'avatar', 'name', 'email', 'role_type', 'password'];
+            $oldData = $this->model->getById($id, $fields)[0];
+            $path = PATH_UPLOAD_ADMIN . $id;
 
-            if ($check == true) {
+            if (!empty($_POST)) {
+                $data = $this->model->getByEmail(trim($_POST['email']), ['id','email']);
+                $check = $this->validated->validateEdit($_POST, $data, $_FILES["avatar"]);
 
-                $avatar = $oldData->avatar;
-                $password = $oldData->password;
+                if ($check == true) {
 
-                if (!empty($_POST['password'])) {
-                    $password = md5($_POST['password']);
+                    $avatar = $oldData->avatar;
+                    $password = $oldData->password;
+
+                    if (!empty($_POST['password'])) {
+                        $password = md5($_POST['password']);
+                    }
+
+                    if ($_FILES["avatar"]["name"] != "") {
+                        $avatar = time() . "_" . $_FILES["avatar"]["name"];
+                        $pathNewAvatar = $path . '/' . $avatar;
+                        updateImage($_FILES["avatar"], $path, $pathNewAvatar);
+                    }
+                    $arrInsert = array(
+                        "name" => trim($_POST['name']),
+                        "email" => trim($_POST['email']),
+                        "password" => $password,
+                        "role_type" => $_POST['role_type'],
+                        "avatar" => $avatar
+                    );
+
+                    $this->model->update($arrInsert, ['id' => $id]);
+
+                    Session::msg(UPDATE_SUCCESSFUL, 'success');
+                    $this->redirect('/?controller=admin&action=search');
+                } else {
+                    // check sai se load lai url cu
+                    $this->redirect($_SERVER['REQUEST_URI']);
                 }
-
-                if ($_FILES["avatar"]["name"] != "") {
-                    $avatar = time() . "_" . $_FILES["avatar"]["name"];
-                    $pathNewAvatar = $path . '/' . $avatar;
-                    updateImage($_FILES["avatar"], $path, $pathNewAvatar);
-                }
-                $arrInsert = array(
-                    "name" => trim($_POST['name']),
-                    "email" => trim($_POST['email']),
-                    "password" => $password,
-                    "role_type" => $_POST['role_type'],
-                    "avatar" => $avatar
-                );
-
-                $this->model->update($arrInsert, ['id' => $id]);
-
-                Session::msg(UPDATE_SUCCESSFUL, 'success');
-                $this->redirect('/?controller=admin&action=search');
             } else {
-                $this->render('create', [], $title = 'Admin-Edit');
+                $this->render('form', ['oldData' => $oldData], $title = 'Admin-Edit');
             }
         } else {
-            $this->render('form', ['oldData' => $oldData], $title = 'Admin-Edit');
-        }
-    }
-
-    public function login()
-    {
-        if (!empty($_POST)) {
-            $email = $_POST['email'];
-            $password = md5($_POST['password']);
-            $data = $this->model->checkLogin($email, $password);
-            $dataGetByEmailPass = $data['dataGetByEmailPass'][0];
-
-            if (isset($dataGetByEmailPass->id)) {
-                $_SESSION['admin'] = array(
-                    "id" => $dataGetByEmailPass->id,
-                    "email" => $dataGetByEmailPass->email,
-                    "role_type" => $dataGetByEmailPass->role_type
-                );
-                $this->redirect('/?controller=admin&action=index');
-            } elseif (empty($_POST['email']) || empty($_POST['password'])) {
-                $_SESSION['errLogin']['err'] = ERROR_LOGIN_EMAIL;
-                $this->redirect('/?controller=admin&action=login');
-
-            } else {
-                $_SESSION['errLogin']['err'] = ERROR_LOGIN_PASS;
-                $this->redirect('/?controller=admin&action=login');
-            }
-        } else {
+            // neu nguoi dung chua login se k hien thi thong bao 
             if (isset($_SESSION['admin'])) {
-                $this->redirect('/?controller=admin&action=index');
+                Session::msg(NO_DATA, 'warning');
             }
-            $this->render('login', [], $title = 'Admin-Login');
+            $this->redirect('/?controller=admin&action=search');
+            // $this->render('search', [], $title = 'Admin-Search');
         }
-
-    }
-
-    public function index()
-    {
-        $this->render('index', [], $title = 'Admin-Index');
-    }
-
-    public function logout()
-    {
-        unset($_SESSION["admin"]);
-        $this->redirect('/?controller=admin&action=login');
     }
 
     public function search()
@@ -169,8 +142,8 @@ class AdminController extends BaseController
             $this->render('search', ['results' => $results], $title = 'Admin-Search');
         } else {
             $this->render('search', [], $title = 'Admin-Search');
+            // $this->redirect('/?controller=admin&action=search');
         }
-
     }
 
     public function delete()
@@ -187,9 +160,9 @@ class AdminController extends BaseController
             } else {
                 Session::msg(DELETE_SUCCESSFUL, 'success');
             }
+        } else {
+            Session::msg(NO_DATA, 'warning');
         }
         $this->redirect('/?controller=admin&action=search');
     }
-
-
 }

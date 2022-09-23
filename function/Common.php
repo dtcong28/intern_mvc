@@ -9,14 +9,6 @@ if (!function_exists('siteURL')) {
     }
 }
 
-//if (!function_exists('getImgUrl')) {
-//    function getImgUrl($imgUrl)
-//    {
-//        $url = siteURL();
-//        return $url . '/' . $imgUrl;
-//    }
-//}
-
 if (!function_exists('includeVariables')) {
     function includeVariables($filePath, $variables = array(), $print = true)
     {
@@ -35,6 +27,12 @@ if (!function_exists('includeVariables')) {
         }
         return $output;
 
+    }
+}
+
+if(!function_exists('getId')) {
+    function getIdFromSession() {
+        return isset($_SESSION['admin']['id']) ? $_SESSION['admin']['id'] : $_SESSION['user']['id'];
     }
 }
 ?>

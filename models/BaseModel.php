@@ -15,23 +15,24 @@ abstract class BaseModel implements QueryInterface
     public function create($data)
     {
         $data = array_merge($data, [
-//            'upd_id' => getSessionAdmin('id'),
-            'upd_id' => '1', // fix sau
-            'upd_datetime' => date('Y-m-d H:i:s')
+            'ins_id' => getIdFromSession(),
+            'upd_id' => NULL,
+            'upd_datetime' => date('Y-m-d H:i:s'),
+            'ins_datetime' => date('Y-m-d H:i:s')
         ]);
 
         return $this->db->insert(static::$table, $data);
-
     }
 
     public function update($values, $conditions)
     {
         $data = array_merge($values, [
-//            'upd_id' => getSessionAdmin('id'),
-            'upd_id' => '1', // fix sau
+            //    'upd_id' => getSessionAdmin('id'),
+            'upd_id' => getIdFromSession(),
+            'ins_datetime' => date('Y-m-d H:i:s'),
             'upd_datetime' => date('Y-m-d H:i:s')
         ]);
-        return $this->db->update(static::$table, $values, $conditions);
+        return $this->db->update(static::$table, $data, $conditions);
     }
 
     public function delete($id)
@@ -68,13 +69,13 @@ abstract class BaseModel implements QueryInterface
         $conditionStr = "";
         $binds = ['_del_flag' => ACTIVE];
         if (!empty($email) && empty($name)) {
-            $conditionStr = "WHERE email LIKE :_email AND del_flag =:_del_flag";
+            $conditionStr = "WHERE email LIKE %:_email% AND del_flag =:_del_flag";
             $binds = array_merge($binds, ['_email' => $email]);
         } elseif (empty($email) && !empty($name)) {
-            $conditionStr = "WHERE name LIKE :_name AND del_flag =:_del_flag";
+            $conditionStr = "WHERE name LIKE %:_name% AND del_flag =:_del_flag";
             $binds = array_merge($binds, ['_name' => $name]);
         } elseif (!empty($email) && !empty($name)) {
-            $conditionStr = "WHERE name LIKE :_name AND email LIKE :_email AND del_flag =:_del_flag";
+            $conditionStr = "WHERE name LIKE %:_name% AND email LIKE %:_email% AND del_flag =:_del_flag";
             $binds = array_merge($binds, ['_email' => $email, '_name' => $name]);;
         } else {
             $conditionStr = "WHERE del_flag =:_del_flag";
@@ -121,5 +122,4 @@ abstract class BaseModel implements QueryInterface
         $data = $this->db->query("$sql LIMIT $startFrom,$recordPerPage", $binds)->results();
         return ["data" => $data, "count" => $count];
     }
-
 }

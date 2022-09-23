@@ -23,7 +23,7 @@
                 </div>
             </li>
             <li>
-                <a class="nav-link" href="/?controller=admin&action=logout" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link" href="/?controller=authBE&action=logout" aria-haspopup="true" aria-expanded="false">
                     Logout
                 </a>
             </li>

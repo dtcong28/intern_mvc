@@ -6,18 +6,26 @@ abstract class BaseValidated
 
     abstract public function password($pass);
 
+    public function test_input($data)
+    {
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
+    }
+
     public function email($data, $email)
     {
-        if (empty(trim($email))) {
+        $email = $this->test_input($email);
+        if (empty($email)) {
             $_SESSION['errCreate']['email']['invaild'] = ERR_EMAIL_INVAILD;
-        } elseif (!filter_var(trim($email), FILTER_VALIDATE_EMAIL)) {
+        } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $_SESSION['errCreate']['email']['invaild'] = ERR_EMAIL_FORMAT;
-        } elseif (strlen(trim($email)) > 64) {
+        } elseif (strlen($email) > 64) {
             $_SESSION['errCreate']['email']['invaild'] = ERR_EMAIL_BETWEEN;
         } elseif (!empty($data)) {
             $_SESSION['errCreate']['email']['invaild'] = ERR_EMAIL_EXIST;
         }
-
     }
 
     public function password_confirm($pass, $password_confirm)
@@ -28,6 +36,13 @@ abstract class BaseValidated
             } elseif (strlen(trim($password_confirm)) != strlen($pass)) {
                 $_SESSION['errCreate']['confirmation_pwd']['invaild'] = ERR_PASSVERIFY_CONFIRMED;
             }
+        }
+    }
+
+    public function role($role)
+    {
+        if (empty($role)) {
+            $_SESSION['errCreate']['role_type']['invaild'] = ERR_ROLE;
         }
     }
 

@@ -12,34 +12,34 @@ if ($is_required_login) {
 }
 
 // check role 
-$admin = ['user', 'authBE'];
-$superAdmin = ['admin', 'user', 'authBE'];
-$user = ['userFE', 'authFE'];
+// $admin = ['user', 'authBE'];
+// $superAdmin = ['admin', 'user', 'authBE'];
+// $user = ['userFE', 'authFE'];
 
-if (isset($_SESSION["admin"])) {
-    if (isset($_SESSION["admin"]['role_type'])) {
-        $permission = $_SESSION["admin"]['role_type'];
+// if (isset($_SESSION["admin"])) {
+//     if (isset($_SESSION["admin"]['role_type'])) {
+//         $permission = $_SESSION["admin"]['role_type'];
 
-        if ($permission == ADMIN) {
-            if (!in_array($_GET['controller'], $admin)) {
-                echo NO_PERMISSION . "<br>";
-                echo "<a href='javascript:history.back()'>" . BACK . "</a>";
-                exit();
-            }
-        } else {
-            if (!in_array($_GET['controller'], $superAdmin)) {
+//         if ($permission == ADMIN) {
+//             if (!in_array($_GET['controller'], $admin)) {
+//                 echo NO_PERMISSION . "<br>";
+//                 echo "<a href='javascript:history.back()'>" . BACK . "</a>";
+//                 exit();
+//             }
+//         } else {
+//             if (!in_array($_GET['controller'], $superAdmin)) {
 
-                echo NO_PERMISSION . "<br>";
-                echo "<a href='javascript:history.back()'> " . BACK . "</a>";
-                exit();
-            }
-        }
-    }
-}
-if (isset($_SESSION["user"])) {
-    if (!in_array($_GET['controller'], $user)) {
-        echo NO_PERMISSION . "<br>";
-        echo "<a href='javascript:history.back()'>" . BACK . "</a>";
-        exit();
-    }
-}
+//                 echo NO_PERMISSION . "<br>";
+//                 echo "<a href='javascript:history.back()'> " . BACK . "</a>";
+//                 exit();
+//             }
+//         }
+//     }
+// }
+// if (isset($_SESSION["user"])) {
+//     if (!in_array($_GET['controller'], $user)) {
+//         echo NO_PERMISSION . "<br>";
+//         echo "<a href='javascript:history.back()'>" . BACK . "</a>";
+//         exit();
+//     }
+// }

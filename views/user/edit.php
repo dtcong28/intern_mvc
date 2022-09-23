@@ -33,7 +33,7 @@
             </div>
             <div class="form-group">
                 <label>Email *</label>
-                <input type="email" class="form-control" name="email"
+                <input type="text" class="form-control" name="email"
                        value="<?php echo isset($oldData->email) ? $oldData->email : '' ?>">
                 <?php if (isset($_SESSION['errCreate']['email'])) : ?>
                     <?php includeVariables(PATH_TO_BLADE . "error.php", ['err' => $_SESSION['errCreate']['email']], true) ?>
@@ -58,12 +58,12 @@
                 <label>Status *</label><br>
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="status"
-                           value=<?php echo ACTIVE_USER ?> required <?php echo isset($oldData->status) && $oldData->status == ACTIVE_USER ? 'checked' : '' ?>>
+                           value=<?php echo ACTIVE_USER ?> <?php echo isset($oldData->status) && $oldData->status == ACTIVE_USER ? 'checked' : '' ?>>
                     <label class="form-check-label">Active</label>
                 </div>
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="status"
-                           value=<?php echo BANNED ?> required <?php echo isset($oldData->status) && $oldData->status == BANNED ? 'checked' : '' ?>>
+                           value=<?php echo BANNED ?> <?php echo isset($oldData->status) && $oldData->status == BANNED ? 'checked' : '' ?>>
                     <label class="form-check-label">Banned</label>
                 </div>
             </div>

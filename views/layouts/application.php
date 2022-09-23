@@ -32,6 +32,10 @@
         return confirm("Do you want to delete: " + name + " ?");
     }
 
+    function Confirm() {
+        return confirm("Do you want to login with facebook");
+    }
+
     var loadFile = function(event) {
         var output = document.getElementById('output');
         output.src = URL.createObjectURL(event.target.files[0]);

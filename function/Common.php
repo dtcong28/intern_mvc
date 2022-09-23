@@ -32,7 +32,11 @@ if (!function_exists('includeVariables')) {
 
 if(!function_exists('getId')) {
     function getIdFromSession() {
-        return isset($_SESSION['admin']['id']) ? $_SESSION['admin']['id'] : $_SESSION['user']['id'];
+        $id = '';
+        if(isset($_SESSION['admin']['id']) || isset($_SESSION['user']['id'])) {
+            $id = isset($_SESSION['admin']['id']) ? $_SESSION['admin']['id'] : $_SESSION['user']['id'];
+        }
+        return $id;
     }
 }
 ?>

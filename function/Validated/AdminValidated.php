@@ -63,7 +63,6 @@ class AdminValidated extends BaseValidated
         if (!empty($file["name"])) {
             $this->image($file);
         }
-
         if (empty($arr["email"]) || $_GET['id'] != $data[0]->id) {
             $this->email($data, $arr['email']);
         }

@@ -38,7 +38,8 @@ class UserValidated extends BaseValidated
     }
 
 
-    public function validateEdit($arr, $file) {
+    public function validateEdit($arr,  $data, $file)
+    {
         $this->name($arr['name']);
         if (!empty($arr['password'])) {
             $this->password($arr['password']);
@@ -47,11 +48,13 @@ class UserValidated extends BaseValidated
         if (!empty($file["name"])) {
             $this->image($file);
         }
-        if(!isset($_SESSION['errCreate'])) {
+        if (empty($arr["email"]) || $_GET['id'] != $data[0]->id) {
+            $this->email($data, $arr['email']);
+        }
+        if (!isset($_SESSION['errCreate'])) {
             return true;
         } else {
             return false;
         }
     }
 }
-?>

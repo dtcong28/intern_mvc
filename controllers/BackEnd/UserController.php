@@ -16,46 +16,57 @@ class UserController extends BaseController
     public function edit()
     {
         $id = isset($_GET['id']) ? $_GET['id'] : '';
-        $fields = ['id', 'avatar', 'name', 'email', 'status', 'password'];
-        $oldData = $this->model->getById($id, $fields)[0];
-        $path = PATH_UPLOAD_USER . $id;
+        $result = $this->model->getById($id, ['id']);
 
-        if (!empty($_POST)) {
-            $check = $this->validated->validateEdit($_POST, $_FILES["avatar"]);
+        if ($result && isset($_SESSION['admin'])) {
+            $fields = ['id', 'avatar', 'name', 'email', 'status', 'password'];
+            $oldData = $this->model->getById($id, $fields)[0];
+            $path = PATH_UPLOAD_USER . $id;
 
-            if ($check == true) {
+            if (!empty($_POST)) {
+                $data = $this->model->getByEmail(trim($_POST['email']), ['id', 'email']);
+                $check = $this->validated->validateEdit($_POST, $data, $_FILES["avatar"]);
 
-                $avatar = $oldData->avatar;
-                $password = $oldData->password;
+                if ($check == true) {
 
-                if (!empty($_POST['password'])) {
-                    $password = md5($_POST['password']);
+                    $avatar = $oldData->avatar;
+                    $password = $oldData->password;
+
+                    if (!empty($_POST['password'])) {
+                        $password = md5($_POST['password']);
+                    }
+
+                    if ($_FILES["avatar"]["name"] != "") {
+                        $avatar = time() . "_" . $_FILES["avatar"]["name"];
+                        $pathNewAvatar = $path . '/' . $avatar;
+                        createImage($_FILES["avatar"], $path, $pathNewAvatar);
+                    }
+                    $arrInsert = array(
+                        "name" => trim($_POST['name']),
+                        "email" => trim($_POST['email']),
+                        "password" => $password,
+                        "status" => $_POST['status'],
+                        "avatar" => $avatar
+                    );
+
+                    $this->model->update($arrInsert, ['id' => $id]);
+
+                    Session::msg(UPDATE_SUCCESSFUL, 'success');
+                    $this->redirect('/?controller=user&action=search');
+                } else {
+                    // check sai se load lai url cu 
+                    $this->redirect($_SERVER['REQUEST_URI']);
                 }
-
-                if ($_FILES["avatar"]["name"] != "") {
-                    $avatar = time() . "_" . $_FILES["avatar"]["name"];
-                    $pathNewAvatar = $path . '/' . $avatar;
-                    createImage($_FILES["avatar"], $path, $pathNewAvatar);
-                }
-                $arrInsert = array(
-                    "name" => trim($_POST['name']),
-                    "email" => trim($_POST['email']),
-                    "password" => $password,
-                    "status" => $_POST['status'],
-                    "avatar" => $avatar
-                );
-
-                $this->model->update($arrInsert, ['id' => $id]);
-
-                Session::msg(UPDATE_SUCCESSFUL, 'success');
-                $this->redirect('/?controller=user&action=search');
             } else {
-                $this->render('edit', [], $title = 'User-Edit');
+                $this->render('edit', ['oldData' => $oldData], $title = 'User-Edit');
             }
         } else {
-            $this->render('edit', ['oldData' => $oldData], $title = 'User-Edit');
+            // neu nguoi dung chua login se k hien thi thong bao 
+            if (isset($_SESSION['admin'])) {
+                Session::msg(NO_DATA, 'warning');
+            }
+            $this->redirect('/?controller=user&action=search');
         }
-
     }
 
     public function delete()
@@ -68,6 +79,8 @@ class UserController extends BaseController
             deleteImage($path);
             $this->model->delete($id);
             Session::msg(DELETE_SUCCESSFUL, 'success');
+        } else {
+            Session::msg(NO_DATA, 'warning');
         }
         $this->redirect('/?controller=user&action=search');
     }
@@ -103,5 +116,4 @@ class UserController extends BaseController
             $this->render('search', [], $title = 'User-Search');
         }
     }
-
 }

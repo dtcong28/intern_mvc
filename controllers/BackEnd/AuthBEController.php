@@ -51,6 +51,7 @@ class AuthBEController extends BaseController
                 $this->redirect('/?controller=admin&action=search');
             }
             $this->render('login', [], $title = 'Admin-Login');
+            // $this->redirect('/?controller=authBE&action=login');
         }
     }
 

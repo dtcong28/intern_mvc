@@ -16,7 +16,7 @@
             <label>Password</label>
             <input type="password" name="password" class="form-control col-4" placeholder="Password">
         </div>
-        <a href="<?php echo isset($loginUrl) ? $loginUrl : '#' ?>">Login with facebook</a><br>
+        <a onclick="return Confirm()" href="<?php echo isset($loginUrl) ? $loginUrl : '#' ?>">Login with facebook</a><br>
         <button type="submit" name="login" class="btn btn-primary">Login</button>
     </form>
 </div>

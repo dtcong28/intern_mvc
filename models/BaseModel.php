@@ -27,7 +27,6 @@ abstract class BaseModel implements QueryInterface
     public function update($values, $conditions)
     {
         $data = array_merge($values, [
-            //    'upd_id' => getSessionAdmin('id'),
             'upd_id' => getIdFromSession(),
             'ins_datetime' => date('Y-m-d H:i:s'),
             'upd_datetime' => date('Y-m-d H:i:s')

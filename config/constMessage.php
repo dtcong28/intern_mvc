@@ -20,9 +20,8 @@ define('ERR_PASSVERIFY_CONFIRMED', 'Password verify does not match!');
 define('ERR_IMG_INVAILD', 'Image can not be blank!');
 define('ERR_IMG_BETWEEN', 'Your file must be between 2KB and 2MG!');
 define('ERR_IMG_TYPE', 'only JPG, JPEG and PNG files are allowed!');
-define('NO_RESULTS','No results found');
-define('NO_DATA','Data does not exist');
+define('NO_RESULTS', 'No results found');
+define('NO_DATA', 'Data does not exist');
 
 define('NO_PERMISSION', 'You can not access this page');
 define('BACK', 'Click to return');
-

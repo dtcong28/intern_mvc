@@ -13,16 +13,14 @@ class UserFEController extends BaseController
         $this->validated = new UserValidated();
         $this->type = FRONT_END;
         $this->is_required_login = false;
-
     }
     public function profile()
     {
-        if(!isset($_SESSION['user'])) {
+        if (!isset($_SESSION['user'])) {
             $this->redirect('/?controller=authFE&action=login');
-        }else {
+        } else {
             $this->renderNoMenu('profile', [], 'User-Profile');
         }
-        
     }
 
     public function create()
@@ -61,7 +59,6 @@ class UserFEController extends BaseController
                     );
 
                     $this->renderNoMenu('profile', ['fbUser' => $objData], 'User-Profile');
-                    // $this->redirect('/?controller=userFE&action=profile');
                 } else {
                     // lan dau tao tk 
                     $this->model->create($fbUser);
@@ -76,9 +73,7 @@ class UserFEController extends BaseController
                     );
                     $this->renderNoMenu('profile', ['fbUser' => $fbUser], 'User-Profile');
                 }
-                
             }
-            
         }
     }
 }

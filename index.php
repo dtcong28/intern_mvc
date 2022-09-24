@@ -7,7 +7,6 @@ require_once('helpers/checkToken.php');
 require_once('config/constMessage.php');
 require_once('helpers/session.php');
 require_once('vendor/autoload.php');
-// require_once('helpers/checkLogin.php');
 
 if (isset($_GET['controller'])) {
     $controller = $_GET['controller'];
@@ -22,4 +21,3 @@ if (isset($_GET['controller'])) {
 }
 
 require_once('routes.php');
-// require_once('helpers/permission.php');

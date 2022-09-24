@@ -29,7 +29,3 @@ define('RECORDPERPAGE', '4');
 
 define('BACK_END', 'BE');
 define('FRONT_END', 'FE');
-
-
-
-

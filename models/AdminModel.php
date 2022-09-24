@@ -12,5 +12,4 @@ class AdminModel extends BaseModel
         $dataGetByEmailPass = $this->getByEmailAndPass($email, $password, $fields);
         return ['dataGetByEmailPass' => $dataGetByEmailPass];
     }
-
 }

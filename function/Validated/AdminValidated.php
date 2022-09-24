@@ -46,6 +46,7 @@ class AdminValidated extends BaseValidated
         $this->image($file);
         $this->password_confirm($arr['password'], $arr['password_confirm']);
         $this->role($arr['role_type']);
+
         if (!isset($_SESSION['errCreate'])) {
             return true;
         } else {
@@ -56,6 +57,7 @@ class AdminValidated extends BaseValidated
     public function validateEdit($arr, $data, $file)
     {
         $this->name($arr['name']);
+
         if (!empty($arr['password'])) {
             $this->password($arr['password']);
             $this->password_confirm($arr['password'], $arr['password_confirm']);

@@ -27,6 +27,7 @@ class AuthFEController extends BaseController
             if (isset($dataGetByEmailPass->id)) {
                 Session::msg(LOGIN_SUCCESSFUL, 'success');
                 $token = getToken(10);
+
                 $_SESSION['user'] = array(
                     "id" => $dataGetByEmailPass->id,
                     "facebook_id" => $dataGetByEmailPass->facebook_id,
@@ -37,6 +38,7 @@ class AuthFEController extends BaseController
                 );
 
                 $checkToken = $this->token->getByEmail($email, ['id', 'account_name', 'token']);
+
                 $dataToken = [
                     'account_name' => $email,
                     'token' => $token,

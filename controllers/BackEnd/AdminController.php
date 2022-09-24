@@ -13,7 +13,6 @@ class AdminController extends BaseController
         $this->folder = 'admin';
         $this->model = new AdminModel();
         $this->validated = new AdminValidated();
-        
     }
 
     public function create()
@@ -48,7 +47,6 @@ class AdminController extends BaseController
                 Session::msg(CREATE_SUCCESSFUL, 'success');
                 $this->redirect('/?controller=admin&action=search');
             } else {
-                // $this->render('create', [], $title = 'Admin-Create');
                 $this->redirect('/?controller=admin&action=create');
             }
         } else {
@@ -61,7 +59,7 @@ class AdminController extends BaseController
         $id = isset($_GET['id']) ? $_GET['id'] : '';
 
         $result = $this->model->getById($id, ['id']);
-        
+
         // them && session de check khi nguoi dung past link url de truy cap ma chua login
         if ($result && isset($_SESSION['admin'])) {
             $fields = ['id', 'avatar', 'name', 'email', 'role_type', 'password'];
@@ -69,7 +67,7 @@ class AdminController extends BaseController
             $path = PATH_UPLOAD_ADMIN . $id;
 
             if (!empty($_POST)) {
-                $data = $this->model->getByEmail(trim($_POST['email']), ['id','email']);
+                $data = $this->model->getByEmail(trim($_POST['email']), ['id', 'email']);
                 $check = $this->validated->validateEdit($_POST, $data, $_FILES["avatar"]);
 
                 if ($check == true) {
@@ -111,7 +109,6 @@ class AdminController extends BaseController
                 Session::msg(NO_DATA, 'warning');
             }
             $this->redirect('/?controller=admin&action=search');
-            // $this->render('search', [], $title = 'Admin-Search');
         }
     }
 
@@ -134,6 +131,7 @@ class AdminController extends BaseController
         if (isset($_GET['searchEmail']) && isset($_GET['searchName'])) {
             $dataResults = $this->model->resultSearch($conditions, $orderBy, $start_from, RECORDPERPAGE);
             $totalPages = ceil($dataResults['count'] / RECORDPERPAGE);
+
             $results = [
                 'data' => $dataResults['data'],
                 'totalPages' => $totalPages,
@@ -141,10 +139,10 @@ class AdminController extends BaseController
                 'sortOrder' => $sortOrder,
                 'column' => $column
             ];
+
             $this->render('search', ['results' => $results], $title = 'Admin-Search');
         } else {
             $this->render('search', [], $title = 'Admin-Search');
-            // $this->redirect('/?controller=admin&action=search');
         }
     }
 

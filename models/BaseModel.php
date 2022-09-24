@@ -51,6 +51,7 @@ abstract class BaseModel implements QueryInterface
         $fields = implode(", ", $arr);
         $table = static::$table;
         $sql = "SELECT $fields FROM {$table} WHERE email =:_email AND del_flag =:_del_flag";
+
         return $this->db->query($sql, array('_email' => $email, '_del_flag' => ACTIVE))->results();
     }
 
@@ -59,6 +60,7 @@ abstract class BaseModel implements QueryInterface
         $fields = implode(", ", $arr);
         $table = static::$table;
         $sql = "SELECT $fields FROM {$table} WHERE  email =:_email AND password =:_password AND del_flag =:_del_flag";
+
         return $this->db->query($sql, array('_email' => $email, '_password' => $pass, '_del_flag' => ACTIVE))->results();
     }
 
@@ -67,6 +69,7 @@ abstract class BaseModel implements QueryInterface
         $table = static::$table;
         $conditionStr = "";
         $binds = ['_del_flag' => ACTIVE];
+
         if (!empty($email) && empty($name)) {
             $conditionStr = "WHERE email LIKE %:_email% AND del_flag =:_del_flag";
             $binds = array_merge($binds, ['_email' => $email]);
@@ -79,6 +82,7 @@ abstract class BaseModel implements QueryInterface
         } else {
             $conditionStr = "WHERE del_flag =:_del_flag";
         }
+
         $sql = "SELECT * FROM {$table} $conditionStr";
         return $this->db->query($sql, $binds)->results();
     }
@@ -88,6 +92,7 @@ abstract class BaseModel implements QueryInterface
         $fields = implode(", ", $arr);
         $table = static::$table;
         $sql = "SELECT $fields FROM {$table} WHERE  id =:_id AND del_flag =:_del_flag";
+
         return $this->db->query($sql, array('_id' => $id, '_del_flag' => ACTIVE))->results();
     }
 
@@ -103,6 +108,7 @@ abstract class BaseModel implements QueryInterface
         $sqlOrder = 'order by ' . $orerBy['column'] . ' ' . $orerBy['sortOrder'];
 
         $binds = ['_del_flag' => ACTIVE];
+
         if (!empty($searchEmail) && empty($searchName)) {
             $conditionStr = "WHERE email LIKE :_email AND" . $conditionStr;
             $binds = array_merge($binds, ['_email' => $searchEmail]);
@@ -119,6 +125,7 @@ abstract class BaseModel implements QueryInterface
         $sql = "SELECT * FROM {$table} $conditionStr $sqlOrder";
         $count = $this->db->query($sql, $binds)->count();
         $data = $this->db->query("$sql LIMIT $startFrom,$recordPerPage", $binds)->results();
+
         return ["data" => $data, "count" => $count];
     }
 }

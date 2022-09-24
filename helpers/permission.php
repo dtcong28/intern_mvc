@@ -1,9 +1,5 @@
 <?php
-
-
 if (!array_key_exists($controller, $controllers) || !in_array($action, $controllers[$controller])) {
-    // $controller = 'pages';
-    // $action = 'error';
     echo NO_PERMISSION . "<br>";
     echo "<a href='javascript:history.back()'> " . BACK . "</a>";
     exit();
@@ -17,7 +13,7 @@ $user = ['userFE', 'authFE'];
 if (isset($_SESSION["admin"])) {
     if (isset($_SESSION["admin"]['role_type'])) {
         $permission = $_SESSION["admin"]['role_type'];
-     
+
         if ($permission == ADMIN) {
             if (!in_array($_GET['controller'], $admin)) {
                 echo NO_PERMISSION . "<br>";

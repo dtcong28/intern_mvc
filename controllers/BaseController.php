@@ -5,7 +5,7 @@ require_once('models/TokenModel.php');
 class BaseController
 {
     protected $folder;
-    public $is_required_login = true; // true cần login để vào đc trang, false k cần login  
+    public $is_required_login = true; // true => phai login để vào đc trang, false k cần login  
     public $type = BACK_END;
 
     function render($file, $data = array(), $title)
@@ -38,8 +38,8 @@ class BaseController
         }
     }
 
-    public function redirect ($path)
+    public function redirect($path)
     {
-        header("Location:".$path);
+        header("Location:" . $path);
     }
 }

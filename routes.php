@@ -9,7 +9,7 @@ $controllers = array(
     'authFE' => ['login', 'logout'],
     'userFE' => ['profile', 'create'],
 );
-require_once('helpers/permission.php'); 
+require_once('helpers/permission.php');
 
 $fileController = [
     'fileBackEnd' => 'controllers/BackEnd/' . ucwords($controller) . 'Controller.php',

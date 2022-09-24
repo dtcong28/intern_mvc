@@ -1,7 +1,6 @@
 <?php
 require_once('controllers/BaseController.php');
 require_once('models/UserModel.php');
-// require_once('function/FbCallBack.php');
 require_once('function/Validated/UserValidated.php');
 
 class UserController extends BaseController
@@ -104,6 +103,7 @@ class UserController extends BaseController
         if (isset($_GET['searchEmail']) && isset($_GET['searchName'])) {
             $dataResults = $this->model->resultSearch($conditions, $orderBy, $start_from, RECORDPERPAGE);
             $totalPages = ceil($dataResults['count'] / RECORDPERPAGE);
+
             $results = [
                 'data' => $dataResults['data'],
                 'totalPages' => $totalPages,

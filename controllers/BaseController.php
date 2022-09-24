@@ -1,6 +1,7 @@
 <?php
 require_once('function/UploadImages.php');
 require_once('function/Common.php');
+require_once('models/TokenModel.php');
 class BaseController
 {
     protected $folder;

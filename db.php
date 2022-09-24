@@ -36,8 +36,6 @@ class DB
         $this->_results = null;
         $this->_lastInsertId = null;
         $this->_error = false;
-//        var_dump($sql);
-//        exit();
         $this->_stmt = $this->_dbh->prepare($sql);
 
         if (!$this->_stmt->execute($bind)) {

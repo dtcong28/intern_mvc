@@ -1,4 +1,3 @@
-<?php var_dump($_SESSION)?>
 <div class="py-4">
     <div class="border border-primary">
         <form method="GET" class="p-4">

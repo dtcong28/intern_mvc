@@ -13,6 +13,7 @@ class AuthBEController extends BaseController
         $this->folder = 'admin';
         $this->model = new AdminModel();
         $this->validated = new AdminValidated();
+        $this->token = new TokenModel();
         $this->is_required_login = false;
     }
 
@@ -25,14 +26,28 @@ class AuthBEController extends BaseController
             $dataGetByEmailPass = $data['dataGetByEmailPass'][0];
 
             if (isset($dataGetByEmailPass->id)) {
-                // $token = getToken();
-                // var_dump($token);
-                // exit;
+                $token = getToken(10);
+
                 $_SESSION['admin'] = array(
                     "id" => $dataGetByEmailPass->id,
                     "email" => $dataGetByEmailPass->email,
                     "role_type" => $dataGetByEmailPass->role_type,
+                    "token" => $token
                 );
+
+                $checkToken = $this->token->getByEmail($email, ['id', 'account_name', 'token']);
+
+                $dataToken = [
+                    'account_name' => $email,
+                    'token' => $token,
+                    'timemodified' => date('Y-m-d H:i:s')
+                ];
+
+                if (empty($checkToken)) {
+                    $this->token->create($dataToken);
+                } else {
+                    $this->token->update($dataToken, ['account_name' => $email]);
+                }
 
                 if ($dataGetByEmailPass->role_type == SUPER_ADMIN) {
                     $this->redirect('/?controller=admin&action=search');
@@ -47,18 +62,12 @@ class AuthBEController extends BaseController
                 $this->redirect('/?controller=authBE&action=login');
             }
         } else {
-            // if (isset($_SESSION['admin'])) {
-            //     $this->redirect('/?controller=admin&action=search');
-            // }
-
             $this->renderNoMenu('login', [], $title = 'Admin-Login');
-            // $this->redirect('/?controller=authBE&action=login');
         }
     }
 
     public function logout()
     {
-        // session_id($_SESSION['session_id']);
         unset($_SESSION["admin"]);
         $this->redirect('/?controller=authBE&action=login');
     }

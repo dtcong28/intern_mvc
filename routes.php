@@ -1,5 +1,4 @@
 <?php
-
 $controllers = array(
     // backend 
     'admin' => ['search', 'create', 'delete', 'edit'],
@@ -8,15 +7,9 @@ $controllers = array(
 
     // frontend
     'authFE' => ['login', 'logout'],
-    'userFE' => ['profile', 'create']
+    'userFE' => ['profile', 'create'],
 );
-if (!array_key_exists($controller, $controllers) || !in_array($action, $controllers[$controller])) {
-    // $controller = 'pages';
-    // $action = 'error';
-    echo NO_PERMISSION . "<br>";
-    echo "<a href='javascript:history.back()'> " . BACK . "</a>";
-    exit();
-}
+require_once('helpers/permission.php'); 
 
 $fileController = [
     'fileBackEnd' => 'controllers/BackEnd/' . ucwords($controller) . 'Controller.php',
@@ -29,7 +22,19 @@ foreach ($fileController as $value) {
     }
 }
 
-// include_once('controllers/' . ucwords($controller) . 'Controller.php');
 $class = ucwords($controller) . 'Controller';
 $controller = new $class;
+
+// check require login 
+$is_required_login = $controller->is_required_login;
+$type = $controller->type;
+if ($is_required_login) {
+    if (!isset($_SESSION['admin']) && $type == BACK_END) {
+        header('location: /?controller=authBE&action=login');
+    }
+    if (!isset($_SESSION['user']) && $type == FRONT_END) {
+        header('location: /?controller=authFE&action=login');
+    }
+}
+
 $controller->$action();

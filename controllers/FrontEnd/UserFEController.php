@@ -20,7 +20,7 @@ class UserFEController extends BaseController
         if(!isset($_SESSION['user'])) {
             $this->redirect('/?controller=authFE&action=login');
         }else {
-            $this->render('profile', [], 'User-Profile');
+            $this->renderNoMenu('profile', [], 'User-Profile');
         }
         
     }
@@ -60,7 +60,7 @@ class UserFEController extends BaseController
                         "avatar" => $objData->avatar,
                     );
 
-                    $this->render('profile', ['fbUser' => $objData], 'User-Profile');
+                    $this->renderNoMenu('profile', ['fbUser' => $objData], 'User-Profile');
                     // $this->redirect('/?controller=userFE&action=profile');
                 } else {
                     // lan dau tao tk 
@@ -74,7 +74,7 @@ class UserFEController extends BaseController
                         "email" => $fbUser['email'],
                         "avatar" => $fbUser['avatar'],
                     );
-                    $this->render('profile', ['fbUser' => $fbUser], 'User-Profile');
+                    $this->renderNoMenu('profile', ['fbUser' => $fbUser], 'User-Profile');
                 }
                 
             }

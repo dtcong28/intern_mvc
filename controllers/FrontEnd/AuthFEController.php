@@ -52,7 +52,7 @@ class AuthFEController extends BaseController
 
             $permission = ['email'];
             $loginUrl = $helper->getLoginUrl('https://paraline.local:80/?controller=userFE&action=create', $permission);
-            $this->render('login', ['loginUrl' => $loginUrl], 'User-Login');
+            $this->renderNoMenu('login', ['loginUrl' => $loginUrl], 'User-Login');
         }
     }
 

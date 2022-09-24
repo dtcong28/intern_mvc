@@ -17,16 +17,10 @@
 </head>
 
 <body>
-    <?php
-    if (!empty($_SESSION['admin'])) {
-        require "views/layouts/menu.php";
-    }
-    ?>
     <div class="container-fluid p-4">
         <?= Session::displaySessionAlerts(); ?>
         <?= @$content ?>
     </div>
 </body>
-<?php require_once("assets/script.php"); ?>
-
+<?php require_once("assets/script.php");?>
 </html>

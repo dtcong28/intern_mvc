@@ -25,14 +25,14 @@ class AuthBEController extends BaseController
             $dataGetByEmailPass = $data['dataGetByEmailPass'][0];
 
             if (isset($dataGetByEmailPass->id)) {
+                // $token = getToken();
+                // var_dump($token);
+                // exit;
                 $_SESSION['admin'] = array(
                     "id" => $dataGetByEmailPass->id,
                     "email" => $dataGetByEmailPass->email,
                     "role_type" => $dataGetByEmailPass->role_type,
-                    "session_id" => session_id()
                 );
-
-                $this->model->update(['session_id' => session_id()], ['id' => $dataGetByEmailPass->id]);
 
                 if ($dataGetByEmailPass->role_type == SUPER_ADMIN) {
                     $this->redirect('/?controller=admin&action=search');
@@ -47,10 +47,11 @@ class AuthBEController extends BaseController
                 $this->redirect('/?controller=authBE&action=login');
             }
         } else {
-            if (isset($_SESSION['admin'])) {
-                $this->redirect('/?controller=admin&action=search');
-            }
-            $this->render('login', [], $title = 'Admin-Login');
+            // if (isset($_SESSION['admin'])) {
+            //     $this->redirect('/?controller=admin&action=search');
+            // }
+
+            $this->renderNoMenu('login', [], $title = 'Admin-Login');
             // $this->redirect('/?controller=authBE&action=login');
         }
     }

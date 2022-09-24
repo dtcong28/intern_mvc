@@ -19,5 +19,6 @@ if (isset($_GET['controller'])) {
     $controller = 'authFE';
     $action = 'login';
 }
+
 require_once('routes.php');
-require_once('helpers/permission.php');
+// require_once('helpers/permission.php');

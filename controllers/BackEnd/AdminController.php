@@ -13,6 +13,7 @@ class AdminController extends BaseController
         $this->folder = 'admin';
         $this->model = new AdminModel();
         $this->validated = new AdminValidated();
+        
     }
 
     public function create()
@@ -29,7 +30,7 @@ class AdminController extends BaseController
                 if ($_FILES["avatar"]["name"] != "") {
                     $avatar = time() . "_" . $_FILES["avatar"]["name"];
                 }
-                
+
                 $arrInsert = array(
                     "name" => trim($_POST['name']),
                     "email" => trim($_POST['email']),

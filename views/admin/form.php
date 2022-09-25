@@ -18,34 +18,34 @@
             </div>
             <div class="form-group">
                 <label>Name *</label>
-                <input type="text" class="form-control" name="name" value="<?php echo isset($oldData->name) ? $oldData->name : '' ?>">
+                <input type="text" class="form-control" name="name" value="<?php echo isset($oldData->name) && !isset($_SESSION['dataInput']) ? $oldData->name : (!isset($_SESSION['errCreate']['name']) && isset($_SESSION['dataInput']) ? $_SESSION['dataInput']['name'] : '') ?>">
                 <?php if (isset($_SESSION['errCreate']['name'])) : ?>
                     <?php includeVariables(PATH_TO_BLADE . "error.php", ['err' => $_SESSION['errCreate']['name']], true) ?>
                 <?php endif ?>
             </div>
             <div class="form-group">
                 <label>Email *</label>
-                <input type="text" class="form-control" name="email" value="<?php echo isset($oldData->email) ? $oldData->email : '' ?>">
+                <input type="text" class="form-control" name="email" value="<?php echo isset($oldData->email) ? $oldData->email : (!isset($_SESSION['errCreate']['email']) && isset($_SESSION['dataInput']) ? $_SESSION['dataInput']['email'] : '') ?>">
                 <?php if (isset($_SESSION['errCreate']['email'])) : ?>
                     <?php includeVariables(PATH_TO_BLADE . "error.php", ['err' => $_SESSION['errCreate']['email']], true) ?>
                 <?php endif ?>
             </div>
             <div class="form-group ">
                 <label>Password *</label>
-                <input type="password" class="form-control" name="password">
+                <input type="password" class="form-control" name="password" value="<?php echo (!isset($_SESSION['errCreate']['password']) && isset($_SESSION['dataInput'])) ? $_SESSION['dataInput']['password'] : '' ?>">
                 <?php if (isset($_SESSION['errCreate']['password'])) : ?>
                     <?php includeVariables(PATH_TO_BLADE . "error.php", ['err' => $_SESSION['errCreate']['password']], true) ?>
                 <?php endif ?>
             </div>
-            <div class="form-group ">
+            <div class=" form-group">
                 <label>Password Verify *</label>
-                <input type="password" class="form-control" name="password_confirm">
+                <input type="password" class="form-control" name="password_confirm" value="<?php echo (!isset($_SESSION['errCreate']['confirmation_pwd']) && isset($_SESSION['dataInput'])) ? $_SESSION['dataInput']['password_confirm'] : '' ?>">
                 <?php if (isset($_SESSION['errCreate']['confirmation_pwd'])) : ?>
                     <?php includeVariables(PATH_TO_BLADE . "error.php", ['err' => $_SESSION['errCreate']['confirmation_pwd']], true) ?>
                 <?php endif ?>
 
             </div>
-            <div class="form-group ">
+            <div class=" form-group">
                 <label>Role *</label><br>
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="role_type" value=<?php echo SUPER_ADMIN ?> <?php echo isset($oldData->role_type) && $oldData->role_type == SUPER_ADMIN ? 'checked' : '' ?>>
@@ -58,7 +58,11 @@
                 <?php if (isset($_SESSION['errCreate']['role_type'])) : ?>
                     <?php includeVariables(PATH_TO_BLADE . "error.php", ['err' => $_SESSION['errCreate']['role_type']], true) ?>
                 <?php endif ?>
-                <?php unset($_SESSION['errCreate']) ?>
+                <?php
+                unset($_SESSION['errCreate']);
+                unset($_SESSION['dataInput']);
+                ?>
+
             </div>
             <div class="row">
                 <button type="reset" name="reset" class="btn btn-secondary col-2">Reset</button>

@@ -23,6 +23,7 @@ class UserController extends BaseController
             $path = PATH_UPLOAD_USER . $id;
 
             if (!empty($_POST)) {
+                $_SESSION['dataInput'] = $_POST;
                 $data = $this->model->getByEmail(trim($_POST['email']), ['id', 'email']);
                 $check = $this->validated->validateEdit($_POST, $data, $_FILES["avatar"]);
 
@@ -51,6 +52,7 @@ class UserController extends BaseController
                     $this->model->update($arrInsert, ['id' => $id]);
 
                     Session::msg(UPDATE_SUCCESSFUL, 'success');
+                    unset($_SESSION['dataInput']);
                     $this->redirect('/?controller=user&action=search');
                 } else {
                     // check sai se load lai url cu 

@@ -25,7 +25,7 @@ define('PATH_UPLOAD_ADMIN', 'assets/upload/admin/');
 define('PATH_UPLOAD_USER', 'assets/upload/user/');
 define('PATH_TO_BLADE', 'views/elements/');
 
-define('RECORDPERPAGE', '4');
+define('RECORDPERPAGE', '3');
 
 define('BACK_END', 'BE');
 define('FRONT_END', 'FE');

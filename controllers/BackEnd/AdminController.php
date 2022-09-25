@@ -18,6 +18,7 @@ class AdminController extends BaseController
     public function create()
     {
         if (!empty($_POST)) {
+            $_SESSION['dataInput'] = $_POST;
             $fields = ['id'];
             $data = $this->model->getByEmail($_POST['email'], $fields);
 
@@ -45,6 +46,8 @@ class AdminController extends BaseController
                 createImage($_FILES["avatar"], $path, $newPath);
 
                 Session::msg(CREATE_SUCCESSFUL, 'success');
+                unset($_SESSION['dataInput']);
+                
                 $this->redirect('/?controller=admin&action=search');
             } else {
                 $this->redirect('/?controller=admin&action=create');
@@ -67,6 +70,7 @@ class AdminController extends BaseController
             $path = PATH_UPLOAD_ADMIN . $id;
 
             if (!empty($_POST)) {
+                $_SESSION['dataInput'] = $_POST;
                 $data = $this->model->getByEmail(trim($_POST['email']), ['id', 'email']);
                 $check = $this->validated->validateEdit($_POST, $data, $_FILES["avatar"]);
 
@@ -95,6 +99,8 @@ class AdminController extends BaseController
                     $this->model->update($arrInsert, ['id' => $id]);
 
                     Session::msg(UPDATE_SUCCESSFUL, 'success');
+                    unset($_SESSION['dataInput']);
+
                     $this->redirect('/?controller=admin&action=search');
                 } else {
                     // check sai se load lai url cu

@@ -16,6 +16,7 @@
             <label for="exampleInputPassword1">Password</label>
             <input type="password" name="password" class="form-control col-4" placeholder="Password">
         </div>
+        <a href="<?php echo DOMAIN?>/?controller=authFE&action=login">Login Account User</a><br>
         <button type="submit" name="login" class="btn btn-primary">Login</button>
     </form>
 </div>

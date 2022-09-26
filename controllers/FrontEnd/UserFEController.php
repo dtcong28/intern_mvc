@@ -17,7 +17,7 @@ class UserFEController extends BaseController
     public function profile()
     {
         if (!isset($_SESSION['user'])) {
-            $this->redirect('/?controller=authFE&action=login');
+            $this->redirect(DOMAIN.'/?controller=authFE&action=login');
         } else {
             $this->renderNoMenu('profile', [], 'User-Profile');
         }

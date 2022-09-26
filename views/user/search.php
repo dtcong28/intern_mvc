@@ -26,7 +26,7 @@
         <tr>
             <th scope="col">ID
                 <?php if (!empty($results['data'])): ?>
-                    <a href="/?controller=<?php echo $_GET['controller'] ?>&action=<?php echo $_GET['action'] ?>&searchEmail=<?php echo $_GET['searchEmail'] ?>&searchName=<?php echo $_GET['searchName'] ?>&page=<?php echo $_GET['page'] ?>&column=id&order=<?php echo $results['ascOrDesc'] ?>">
+                    <a href="<?php echo DOMAIN?>/?controller=<?php echo $_GET['controller'] ?>&action=<?php echo $_GET['action'] ?>&searchEmail=<?php echo $_GET['searchEmail'] ?>&searchName=<?php echo $_GET['searchName'] ?>&page=<?php echo $_GET['page'] ?>&column=id&order=<?php echo $results['ascOrDesc'] ?>">
                         <i class="fa fa-sort<?php echo $results['column'] == 'id' ? '-' . $results['sortOrder'] : ''; ?>"
                            aria-hidden="true"></i>
                     </a>
@@ -35,7 +35,7 @@
             <th scope="col">Avatar</th>
             <th scope="col">Name
                 <?php if (!empty($results['data'])): ?>
-                    <a href="/?controller=<?php echo $_GET['controller'] ?>&action=<?php echo $_GET['action'] ?>&searchEmail=<?php echo $_GET['searchEmail'] ?>&searchName=<?php echo $_GET['searchName'] ?>&page=<?php echo $_GET['page'] ?>&column=name&order=<?php echo $results['ascOrDesc'] ?>">
+                    <a href="<?php echo DOMAIN?>/?controller=<?php echo $_GET['controller'] ?>&action=<?php echo $_GET['action'] ?>&searchEmail=<?php echo $_GET['searchEmail'] ?>&searchName=<?php echo $_GET['searchName'] ?>&page=<?php echo $_GET['page'] ?>&column=name&order=<?php echo $results['ascOrDesc'] ?>">
                         <i class="fa fa-sort<?php echo $results['column'] == 'name' ? '-' . $results['sortOrder'] : ''; ?>"
                            aria-hidden="true"></i>
                     </a>
@@ -43,7 +43,7 @@
             </th>
             <th scope="col">Email
                 <?php if (!empty($results['data'])): ?>
-                    <a href="/?controller=<?php echo $_GET['controller'] ?>&action=<?php echo $_GET['action'] ?>&searchEmail=<?php echo $_GET['searchEmail'] ?>&searchName=<?php echo $_GET['searchName'] ?>&page=<?php echo $_GET['page'] ?>&column=email&order=<?php echo $results['ascOrDesc'] ?>">
+                    <a href="<?php echo DOMAIN?>/?controller=<?php echo $_GET['controller'] ?>&action=<?php echo $_GET['action'] ?>&searchEmail=<?php echo $_GET['searchEmail'] ?>&searchName=<?php echo $_GET['searchName'] ?>&page=<?php echo $_GET['page'] ?>&column=email&order=<?php echo $results['ascOrDesc'] ?>">
                         <i class="fa fa-sort<?php echo $results['column'] == 'email' ? '-' . $results['sortOrder'] : ''; ?>"
                            aria-hidden="true"></i>
                     </a>
@@ -51,7 +51,7 @@
             </th>
             <th scope="col">Status
                 <?php if (!empty($results['data'])): ?>
-                    <a href="/?controller=<?php echo $_GET['controller'] ?>&action=<?php echo $_GET['action'] ?>&searchEmail=<?php echo $_GET['searchEmail'] ?>&searchName=<?php echo $_GET['searchName'] ?>&page=<?php echo $_GET['page'] ?>&column=status&order=<?php echo $results['ascOrDesc'] ?>">
+                    <a href="<?php echo DOMAIN?>/?controller=<?php echo $_GET['controller'] ?>&action=<?php echo $_GET['action'] ?>&searchEmail=<?php echo $_GET['searchEmail'] ?>&searchName=<?php echo $_GET['searchName'] ?>&page=<?php echo $_GET['page'] ?>&column=status&order=<?php echo $results['ascOrDesc'] ?>">
                         <i class="fa fa-sort<?php echo $results['column'] == 'status' ? '-' . $results['sortOrder'] : ''; ?>"
                            aria-hidden="true"></i>
                     </a>
@@ -79,9 +79,9 @@
                     <td><?php echo $value->email ?></td>
                     <td><?php echo $value->status == ACTIVE_USER ? 'Active' : 'Banned' ?></td>
                     <td>
-                        <a href="/?controller=user&action=edit&id=<?php echo $value->id; ?>">Edit</a><br>
+                        <a href="<?php echo DOMAIN?>/?controller=user&action=edit&id=<?php echo $value->id; ?>">Edit</a><br>
                         <a onclick="return Del('<?php echo $value->name; ?>')"
-                           href="/?controller=user&action=delete&id=<?= $value->id; ?>">Delete</a>
+                           href="<?php echo DOMAIN?>/?controller=user&action=delete&id=<?= $value->id; ?>">Delete</a>
                     </td>
                 </tr>
 

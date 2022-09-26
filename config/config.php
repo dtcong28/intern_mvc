@@ -29,3 +29,6 @@ define('RECORDPERPAGE', '3');
 
 define('BACK_END', 'BE');
 define('FRONT_END', 'FE');
+
+// define('DOMAIN', 'https://paraline.local:80');
+define('DOMAIN', 'https://9dd9-14-248-83-33.jp.ngrok.io/training_project_mvc');

@@ -51,13 +51,13 @@ class AuthFEController extends BaseController
                     $this->token->update($dataToken, ['account_name' => $email]);
                 }
 
-                $this->redirect('/?controller=userFE&action=profile');
+                $this->redirect(DOMAIN.'/?controller=userFE&action=profile');
             } elseif (empty($_POST['email']) || empty($_POST['password'])) {
                 $_SESSION['errLogin']['err'] = ERROR_LOGIN_EMAIL;
-                $this->redirect('/?controller=authFE&action=login');
+                $this->redirect(DOMAIN.'/?controller=authFE&action=login');
             } else {
                 $_SESSION['errLogin']['err'] = ERROR_LOGIN_PASS;
-                $this->redirect('/?controller=authFE&action=login');
+                $this->redirect(DOMAIN.'/?controller=authFE&action=login');
             }
         } else {
             $fb = new Facebook\Facebook([
@@ -68,7 +68,8 @@ class AuthFEController extends BaseController
             $helper = $fb->getRedirectLoginHelper();
 
             $permission = ['email'];
-            $loginUrl = $helper->getLoginUrl('https://paraline.local:80/?controller=userFE&action=create', $permission);
+            $loginUrl = $helper->getLoginUrl( DOMAIN.'/?controller=userFE&action=create', $permission);
+
             $this->renderNoMenu('login', ['loginUrl' => $loginUrl], 'User-Login');
         }
     }
@@ -76,6 +77,6 @@ class AuthFEController extends BaseController
     public function logout()
     {
         unset($_SESSION["user"]);
-        header('location: /?controller=authFE&action=login');
+        header('location: '.DOMAIN.'/?controller=authFE&action=login');
     }
 }

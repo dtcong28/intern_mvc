@@ -7,8 +7,8 @@
                         Admin management
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="/?controller=admin&action=search">Search</a>
-                        <a class="dropdown-item" href="/?controller=admin&action=create">Create</a>
+                        <a class="dropdown-item" href="<?php echo DOMAIN?>/?controller=admin&action=search">Search</a>
+                        <a class="dropdown-item" href="<?php echo DOMAIN?>/?controller=admin&action=create">Create</a>
                     </div>
                 </li>
             <?php endif; ?>
@@ -17,11 +17,11 @@
                     User management
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="/?controller=user&action=search">Search</a>
+                    <a class="dropdown-item" href="<?php echo DOMAIN?>/?controller=user&action=search">Search</a>
                 </div>
             </li>
             <li>
-                <a class="nav-link" href="/?controller=authBE&action=logout" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link" href="<?php echo DOMAIN?>/?controller=authBE&action=logout" aria-haspopup="true" aria-expanded="false">
                     Logout
                 </a>
             </li>

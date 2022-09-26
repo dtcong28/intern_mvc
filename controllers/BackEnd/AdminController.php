@@ -48,9 +48,9 @@ class AdminController extends BaseController
                 Session::msg(CREATE_SUCCESSFUL, 'success');
                 unset($_SESSION['dataInput']);
                 
-                $this->redirect('/?controller=admin&action=search');
+                $this->redirect(DOMAIN.'/?controller=admin&action=search');
             } else {
-                $this->redirect('/?controller=admin&action=create');
+                $this->redirect(DOMAIN.'/?controller=admin&action=create');
             }
         } else {
             $this->render('form', [], $title = 'Admin-Create');
@@ -101,7 +101,7 @@ class AdminController extends BaseController
                     Session::msg(UPDATE_SUCCESSFUL, 'success');
                     unset($_SESSION['dataInput']);
 
-                    $this->redirect('/?controller=admin&action=search');
+                    $this->redirect(DOMAIN.'/?controller=admin&action=search');
                 } else {
                     // check sai se load lai url cu
                     $this->redirect($_SERVER['REQUEST_URI']);
@@ -114,7 +114,7 @@ class AdminController extends BaseController
             if (isset($_SESSION['admin'])) {
                 Session::msg(NO_DATA, 'warning');
             }
-            $this->redirect('/?controller=admin&action=search');
+            $this->redirect(DOMAIN.'/?controller=admin&action=search');
         }
     }
 
@@ -169,6 +169,6 @@ class AdminController extends BaseController
         } else {
             Session::msg(NO_DATA, 'warning');
         }
-        $this->redirect('/?controller=admin&action=search');
+        $this->redirect(DOMAIN.'/?controller=admin&action=search');
     }
 }

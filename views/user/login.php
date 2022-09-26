@@ -8,7 +8,7 @@
     <?php unset($_SESSION['errLogin']) ?>
     <form method="post" class="mx-5">
         <div class="form-group ">
-            <label>Email </label>
+            <label>Email</label>
             <input type="email" name="email" class="form-control col-4" placeholder="Enter email">
 
         </div>
@@ -17,6 +17,7 @@
             <input type="password" name="password" class="form-control col-4" placeholder="Password">
         </div>
         <a onclick="return Confirm()" href="<?php echo isset($loginUrl) ? $loginUrl : '#' ?>">Login with facebook</a><br>
+        <a href="<?php echo DOMAIN?>/?controller=authBE&action=login">Login Account Admin</a><br>
         <button type="submit" name="login" class="btn btn-primary">Login</button>
     </form>
 </div>

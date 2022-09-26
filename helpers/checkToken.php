@@ -1,4 +1,5 @@
 <?php
+// backend
 if (isset($_SESSION['admin'])) {
     $db = DB::getInstance();
     $sql = " SELECT token FROM account_token WHERE account_name =:_account_name";
@@ -13,6 +14,7 @@ if (isset($_SESSION['admin'])) {
     }
 }
 
+// frontend
 if (isset($_SESSION['user'])) {
     $db = DB::getInstance();
     $sql = " SELECT token FROM account_token WHERE account_name =:_account_name";

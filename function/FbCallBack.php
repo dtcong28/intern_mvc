@@ -5,6 +5,7 @@ if (!function_exists('FbCallBack')) {
         if (isset($_GET['state'])) {
             $helper->getPersistentDataHandler()->set('state', $_GET['state']);
         }
+        
         try {
             $accessToken = $helper->getAccessToken();
         } catch (Facebook\Exceptions\FacebookResponseException $e) {

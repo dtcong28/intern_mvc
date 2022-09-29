@@ -39,3 +39,25 @@ if (!function_exists('deleteImage')) {
         rmdir($path);
     }
 }
+
+if (!function_exists('moveImage')) {
+    function moveImage($from, $to)
+    {
+        if (copy($from, $to)) {
+            unlink($from);
+        }
+    }
+}
+
+if (!function_exists('uploadImageToTmp')) {
+    function uploadImageToTmp($file)
+    {
+        if ($file["name"] != "") {
+            $avatar = $file["name"];
+            $_SESSION['dataInput']['tmp_avatar'] = $avatar;
+
+            $newPath = PATH_UPLOAD_TMP . $avatar;
+            move_uploaded_file($file['tmp_name'], $newPath);
+        }
+    }
+}

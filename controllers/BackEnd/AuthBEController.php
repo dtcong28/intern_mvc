@@ -19,6 +19,9 @@ class AuthBEController extends BaseController
 
     public function login()
     {
+        if(isset($_SESSION['admin'])) {
+            $this->redirect(DOMAIN.'/?controller=admin&action=search&searchEmail=&searchName=&page=1&column=id&order=asc');
+        }
         if (!empty($_POST)) {
             $email = $_POST['email'];
             $password = md5($_POST['password']);
@@ -50,9 +53,9 @@ class AuthBEController extends BaseController
                 }
 
                 if ($dataGetByEmailPass->role_type == SUPER_ADMIN) {
-                    $this->redirect(DOMAIN.'/?controller=admin&action=search');
+                    $this->redirect(DOMAIN.'/?controller=admin&action=search&searchEmail=&searchName=&page=1&column=id&order=asc');
                 } else {
-                    $this->redirect(DOMAIN.'/?controller=user&action=search');
+                    $this->redirect(DOMAIN.'/?controller=user&action=search&searchEmail=&searchName=&page=1&column=id&order=asc');
                 }
             } elseif (empty($_POST['email']) || empty($_POST['password'])) {
                 $_SESSION['errLogin']['err'] = ERROR_LOGIN_EMAIL;

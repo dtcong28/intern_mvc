@@ -21,6 +21,7 @@ define('APP_ID', '1123389511940489');
 define('APP_SECRET', '79533e21d10a3c3c6a4c9a9bdde52ced');
 define('DEFAULT_GRAPH_VERSION', 'v14.0');
 
+define('PATH_UPLOAD_TMP', 'assets/upload/tmp/');
 define('PATH_UPLOAD_ADMIN', 'assets/upload/admin/');
 define('PATH_UPLOAD_USER', 'assets/upload/user/');
 define('PATH_TO_BLADE', 'views/elements/');
@@ -30,5 +31,5 @@ define('RECORDPERPAGE', '10');
 define('BACK_END', 'BE');
 define('FRONT_END', 'FE');
 
-// define('DOMAIN', 'https://paraline.local:80');
-define('DOMAIN', 'https://9dd9-14-248-83-33.jp.ngrok.io/training_project_mvc');
+// define('DOMAIN', 'http://localhost/training_project_mvc');
+define('DOMAIN', 'https://de7a-14-248-83-33.jp.ngrok.io/training_project_mvc');

@@ -10,7 +10,17 @@
             <div class="form-group">
                 <label>Avatar *</label><br>
                 <input type="file" class="form-control-file" name="avatar" id="upload" onchange="loadFile(event)">
-                <img style="width: 50px;" id="output" <?php if (isset($oldData)) : ?>src="assets/upload/admin/<?php echo $oldData->id . '/' . $oldData->avatar; ?>" <?php endif; ?> />
+
+                <img style="width: 50px;" id="output" 
+                    <?php if (isset($_SESSION['dataInput']['tmp_avatar'])) : ?> 
+                        src="assets/upload/tmp/<?php echo $_SESSION['dataInput']['tmp_avatar']; ?>" 
+                    <?php elseif (isset($oldData)) : ?> 
+                        src="assets/upload/admin/<?php echo $oldData->id . '/' . $oldData->avatar; ?>" 
+                    <?php endif ?>
+                />
+                <?php if (isset($_SESSION['dataInput']['tmp_avatar'])) : ?>
+                    <input type="hidden" name="tmp_avatar" value="<?php echo $_SESSION['dataInput']['tmp_avatar']; ?>">
+                <?php endif ?>
 
                 <?php if (isset($_SESSION['errCreate']['image'])) : ?>
                     <?php includeVariables(PATH_TO_BLADE . "error.php", ['err' => $_SESSION['errCreate']['image']], true) ?>
@@ -48,11 +58,11 @@
             <div class=" form-group">
                 <label>Role *</label><br>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="role_type" value=<?php echo SUPER_ADMIN ?> <?php echo isset($oldData->role_type) && $oldData->role_type == SUPER_ADMIN ? 'checked' : '' ?>>
+                    <input class="form-check-input" type="radio" name="role_type" value=<?php echo SUPER_ADMIN ?> <?php echo isset($oldData->role_type) && $oldData->role_type == SUPER_ADMIN ? 'checked' : (!isset($_SESSION['errCreate']['role_type']) && isset($_SESSION['dataInput']) && $_SESSION['dataInput']['role_type'] == SUPER_ADMIN ? 'checked' : '') ?>>
                     <label class="form-check-label">Super Admin</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="role_type" value=<?php echo ADMIN ?> <?php echo isset($oldData->role_type) && $oldData->role_type == ADMIN ? 'checked' : '' ?>>
+                    <input class="form-check-input" type="radio" name="role_type" value=<?php echo ADMIN ?> <?php echo isset($oldData->role_type) && $oldData->role_type == ADMIN ? 'checked' : (!isset($_SESSION['errCreate']['role_type']) && isset($_SESSION['dataInput']) && $_SESSION['dataInput']['role_type'] == ADMIN ? 'checked' : '') ?>>
                     <label class="form-check-label">Admin</label>
                 </div>
                 <?php if (isset($_SESSION['errCreate']['role_type'])) : ?>

@@ -7,8 +7,8 @@ if (!array_key_exists($controller, $controllers) || !in_array($action, $controll
 
 // check role 
 $admin = ['user', 'authBE'];
-$superAdmin = ['admin', 'user', 'authBE'];
-$user = ['userFE', 'authFE'];
+$superAdmin = ['admin', 'user', 'authBE', 'authFE', 'userFE'];
+$user = ['userFE', 'authFE', 'authBE'];
 
 if (isset($_SESSION["admin"])) {
     if (isset($_SESSION["admin"]['role_type'])) {
@@ -29,8 +29,7 @@ if (isset($_SESSION["admin"])) {
             }
         }
     }
-}
-if (isset($_SESSION["user"])) {
+} else if (isset($_SESSION["user"])) {
     if (!in_array($_GET['controller'], $user)) {
         echo NO_PERMISSION . "<br>";
         echo "<a href='javascript:history.back()'>" . BACK . "</a>";

@@ -1,7 +1,6 @@
 <?php
 require_once('controllers/BaseController.php');
 require_once('models/UserModel.php');
-require_once('function/FbCallBack.php');
 require_once('function/Validated/UserValidated.php');
 
 class AuthFEController extends BaseController
@@ -18,6 +17,11 @@ class AuthFEController extends BaseController
 
     public function login()
     {
+        if(isset($_SESSION['user'])) {
+            // var_dump('1');
+            // exit;
+            $this->redirect(DOMAIN.'/?controller=userFE&action=profile');
+        }
         if (!empty($_POST)) {
             $email = $_POST['email'];
             $password = md5($_POST['password']);
@@ -60,6 +64,7 @@ class AuthFEController extends BaseController
                 $this->redirect(DOMAIN.'/?controller=authFE&action=login');
             }
         } else {
+            
             $fb = new Facebook\Facebook([
                 'app_id' => APP_ID,
                 'app_secret' => APP_SECRET,

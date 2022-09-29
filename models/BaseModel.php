@@ -110,13 +110,13 @@ abstract class BaseModel implements QueryInterface
         $binds = ['_del_flag' => ACTIVE];
 
         if (!empty($searchEmail) && empty($searchName)) {
-            $conditionStr = "WHERE email LIKE :_email AND" . $conditionStr;
+            $conditionStr = "WHERE email LIKE CONCAT('%', :_email, '%') AND" . $conditionStr;
             $binds = array_merge($binds, ['_email' => $searchEmail]);
         } elseif (empty($searchEmail) && !empty($searchName)) {
-            $conditionStr = "WHERE name LIKE :_name AND" . $conditionStr;
+            $conditionStr = "WHERE name LIKE CONCAT('%', :_name, '%') AND" . $conditionStr;
             $binds = array_merge($binds, ['_name' => $searchName]);
         } elseif (!empty($searchEmail) && !empty($searchName)) {
-            $conditionStr = "WHERE name LIKE :_name AND email LIKE :_email AND " . $conditionStr;
+            $conditionStr = "WHERE name LIKE CONCAT('%', :_name, '%') AND email LIKE CONCAT('%', :_email, '%') AND " . $conditionStr;
             $binds = array_merge($binds, ['_email' => $searchEmail, '_name' => $searchName]);;
         } else {
             $conditionStr = "WHERE " . $conditionStr;
@@ -124,6 +124,7 @@ abstract class BaseModel implements QueryInterface
 
         $sql = "SELECT * FROM {$table} $conditionStr $sqlOrder";
         $count = $this->db->query($sql, $binds)->count();
+       
         $data = $this->db->query("$sql LIMIT $startFrom,$recordPerPage", $binds)->results();
 
         return ["data" => $data, "count" => $count];

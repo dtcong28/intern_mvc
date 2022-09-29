@@ -22,15 +22,20 @@ class AdminController extends BaseController
             $fields = ['id'];
             $data = $this->model->getByEmail($_POST['email'], $fields);
 
+            // xử lý upload ảnh vào folder tmp
+            uploadImageToTmp($_FILES["avatar"]);
+
             $check = $this->validated->validateCreate($_POST, $data, $_FILES["avatar"]);
             if ($check == true) {
-                $avatar = "";
-                $password = md5($_POST['password']);
-
+                // xử lý lấy tên ảnh (khi lần đầu tạo thì lấy từ FILE,
+                // khi img pass mà các trường khác k pass validate thì lấy tên trên session)
                 if ($_FILES["avatar"]["name"] != "") {
-                    $avatar = time() . "_" . $_FILES["avatar"]["name"];
+                    $avatar = $_FILES["avatar"]["name"];
+                } else {
+                    $avatar = $_SESSION['dataInput']['tmp_avatar'];
                 }
 
+                $password = md5($_POST['password']);
                 $arrInsert = array(
                     "name" => trim($_POST['name']),
                     "email" => trim($_POST['email']),
@@ -39,18 +44,24 @@ class AdminController extends BaseController
                     "avatar" => $avatar
                 );
 
-                $conn = $this->model->create($arrInsert);
+                $this->model->create($arrInsert);
+
                 $id = $this->model->lastInsertId();
+
                 $path = PATH_UPLOAD_ADMIN . $id;
                 $newPath = $path . '/' . $avatar;
-                createImage($_FILES["avatar"], $path, $newPath);
+                createFolder($path);
 
+                $tempPath = PATH_UPLOAD_TMP . $avatar;
+                $adminPath = PATH_UPLOAD_ADMIN . $id . '/' . $avatar;
+                moveImage($tempPath,$adminPath);
+                
                 Session::msg(CREATE_SUCCESSFUL, 'success');
                 unset($_SESSION['dataInput']);
-                
-                $this->redirect(DOMAIN.'/?controller=admin&action=search');
+
+                $this->redirect(DOMAIN . '/?controller=admin&action=search');
             } else {
-                $this->redirect(DOMAIN.'/?controller=admin&action=create');
+                $this->redirect(DOMAIN . '/?controller=admin&action=create');
             }
         } else {
             $this->render('form', [], $title = 'Admin-Create');
@@ -67,16 +78,15 @@ class AdminController extends BaseController
         if ($result && isset($_SESSION['admin'])) {
             $fields = ['id', 'avatar', 'name', 'email', 'role_type', 'password'];
             $oldData = $this->model->getById($id, $fields)[0];
-            $path = PATH_UPLOAD_ADMIN . $id;
 
             if (!empty($_POST)) {
                 $_SESSION['dataInput'] = $_POST;
                 $data = $this->model->getByEmail(trim($_POST['email']), ['id', 'email']);
                 $check = $this->validated->validateEdit($_POST, $data, $_FILES["avatar"]);
 
+                uploadImageToTmp($_FILES["avatar"]);
                 if ($check == true) {
-
-                    $avatar = $oldData->avatar;
+                    
                     $password = $oldData->password;
 
                     if (!empty($_POST['password'])) {
@@ -84,10 +94,17 @@ class AdminController extends BaseController
                     }
 
                     if ($_FILES["avatar"]["name"] != "") {
-                        $avatar = time() . "_" . $_FILES["avatar"]["name"];
-                        $pathNewAvatar = $path . '/' . $avatar;
-                        updateImage($_FILES["avatar"], $path, $pathNewAvatar);
+                        $avatar = $_FILES["avatar"]["name"];
+                    } else if(isset($_SESSION['dataInput']['tmp_avatar'])) {
+                        $avatar = $_SESSION['dataInput']['tmp_avatar'];
+                    } else {
+                        $avatar = $oldData->avatar;
                     }
+
+                    $tempPath = PATH_UPLOAD_TMP . $avatar;
+                    $adminPath = PATH_UPLOAD_ADMIN . $id . '/' . $avatar;
+                    moveImage($tempPath,$adminPath);
+                   
                     $arrInsert = array(
                         "name" => trim($_POST['name']),
                         "email" => trim($_POST['email']),
@@ -101,7 +118,7 @@ class AdminController extends BaseController
                     Session::msg(UPDATE_SUCCESSFUL, 'success');
                     unset($_SESSION['dataInput']);
 
-                    $this->redirect(DOMAIN.'/?controller=admin&action=search');
+                    $this->redirect(DOMAIN . '/?controller=admin&action=search');
                 } else {
                     // check sai se load lai url cu
                     $this->redirect($_SERVER['REQUEST_URI']);
@@ -114,7 +131,7 @@ class AdminController extends BaseController
             if (isset($_SESSION['admin'])) {
                 Session::msg(NO_DATA, 'warning');
             }
-            $this->redirect(DOMAIN.'/?controller=admin&action=search');
+            $this->redirect(DOMAIN . '/?controller=admin&action=search');
         }
     }
 
@@ -169,6 +186,6 @@ class AdminController extends BaseController
         } else {
             Session::msg(NO_DATA, 'warning');
         }
-        $this->redirect(DOMAIN.'/?controller=admin&action=search');
+        $this->redirect(DOMAIN . '/?controller=admin&action=search');
     }
 }

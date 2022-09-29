@@ -7,7 +7,7 @@
                         Admin management
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="<?php echo DOMAIN?>/?controller=admin&action=search">Search</a>
+                        <a class="dropdown-item" href="<?php echo DOMAIN?>/?controller=admin&action=search&searchEmail=&searchName=&page=1&column=id&order=asc">Search</a>
                         <a class="dropdown-item" href="<?php echo DOMAIN?>/?controller=admin&action=create">Create</a>
                     </div>
                 </li>
@@ -17,7 +17,7 @@
                     User management
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="<?php echo DOMAIN?>/?controller=user&action=search">Search</a>
+                    <a class="dropdown-item" href="<?php echo DOMAIN?>/?controller=user&action=search&searchEmail=&searchName=&page=1&column=id&order=asc">Search</a>
                 </div>
             </li>
             <li>

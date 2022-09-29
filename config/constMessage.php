@@ -8,7 +8,6 @@ define('DELETE_SUCCESSFUL', 'Delete successful!');
 
 define('ERR_ROLE', 'You have to select role!');
 define('ERR_NAME_INVAILD', 'Name can not be blank!');
-define('ERR_NAME_BETWEEN', 'Name must be between 6 and 129 characters!');
 define('ERR_EMAIL_INVAILD', 'Email can not be blank!');
 define('ERR_EMAIL_FORMAT', 'Invalid email format!');
 define('ERR_EMAIL_BETWEEN', 'Email be max 64 characters!');

@@ -8,9 +8,7 @@ class AdminValidated extends BaseValidated
         $name = $this->test_input($name);
         if (empty($name)) {
             $_SESSION['errCreate']['name']['invaild'] = ERR_NAME_INVAILD;
-        } elseif (strlen($name) < 6 || strlen($name) > 129) {
-            $_SESSION['errCreate']['name']['invaild'] = ERR_NAME_BETWEEN;
-        }
+        } 
     }
 
     public function password($pass)
@@ -43,7 +41,11 @@ class AdminValidated extends BaseValidated
         $this->password($arr['password']);
         $this->email($data, $arr['email']);
         $this->name($arr['name']);
-        $this->image($file);
+
+        if(!isset($_SESSION['dataInput']['tmp_avatar'])) {
+            $this->image($file);
+        }
+
         $this->password_confirm($arr['password'], $arr['password_confirm']);
         $this->role($arr['role_type']);
 

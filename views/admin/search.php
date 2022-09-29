@@ -5,11 +5,11 @@
             <input type="hidden" name="action" value="search">
             <div class="form-group pb-3 col-6">
                 <label>Email *</label>
-                <input type="email" class="form-control " name="searchEmail">
+                <input type="text" class="form-control " name="searchEmail" value="<?php echo !empty($_GET['searchEmail']) ? $_GET['searchEmail'] : '' ?>">
             </div>
             <div class="form-group pb-3 col-6">
                 <label>Name *</label>
-                <input type="text" class="form-control" name="searchName">
+                <input type="text" class="form-control" name="searchName" value="<?php echo !empty($_GET['searchName']) ? $_GET['searchName'] : '' ?>">
                 <input type="hidden" value="1" name="page">
                 <input type="hidden" name="column" value="id">
                 <input type="hidden" name="order" value="asc">

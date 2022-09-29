@@ -7,8 +7,6 @@ class UserValidated extends BaseValidated
         $name = $this->test_input($name);
         if (empty($name)) {
             $_SESSION['errCreate']['name']['invaild'] = ERR_NAME_INVAILD;
-        } elseif (strlen(trim($name)) < 6 || strlen(trim($name)) > 256) {
-            $_SESSION['errCreate']['name']['invaild'] = ERR_NAME_BETWEEN;
         }
     }
 

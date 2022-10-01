@@ -54,8 +54,8 @@ class AdminController extends BaseController
 
                 $tempPath = PATH_UPLOAD_TMP . $avatar;
                 $adminPath = PATH_UPLOAD_ADMIN . $id . '/' . $avatar;
-                moveImage($tempPath,$adminPath);
-                
+                moveImage($tempPath, $adminPath);
+
                 Session::msg(CREATE_SUCCESSFUL, 'success');
                 unset($_SESSION['dataInput']);
 
@@ -86,7 +86,7 @@ class AdminController extends BaseController
 
                 uploadImageToTmp($_FILES["avatar"]);
                 if ($check == true) {
-                    
+
                     $password = $oldData->password;
 
                     if (!empty($_POST['password'])) {
@@ -95,7 +95,7 @@ class AdminController extends BaseController
 
                     if ($_FILES["avatar"]["name"] != "") {
                         $avatar = $_FILES["avatar"]["name"];
-                    } else if(isset($_SESSION['dataInput']['tmp_avatar'])) {
+                    } else if (isset($_SESSION['dataInput']['tmp_avatar'])) {
                         $avatar = $_SESSION['dataInput']['tmp_avatar'];
                     } else {
                         $avatar = $oldData->avatar;
@@ -103,8 +103,8 @@ class AdminController extends BaseController
 
                     $tempPath = PATH_UPLOAD_TMP . $avatar;
                     $adminPath = PATH_UPLOAD_ADMIN . $id . '/' . $avatar;
-                    moveImage($tempPath,$adminPath);
-                   
+                    moveImage($tempPath, $adminPath);
+
                     $arrInsert = array(
                         "name" => trim($_POST['name']),
                         "email" => trim($_POST['email']),

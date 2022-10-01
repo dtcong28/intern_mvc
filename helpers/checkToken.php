@@ -8,7 +8,7 @@ if (isset($_SESSION['admin'])) {
         $token = $result[0]->token;
         if ($_SESSION['admin']['token'] != $token) {
             unset($_SESSION["admin"]);
-            header('Location: /?controller=authBE&action=login');
+            header('Location: ' . DOMAIN . '/?controller=authBE&action=login');
             
         }
     }

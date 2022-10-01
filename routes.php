@@ -30,10 +30,10 @@ $is_required_login = $controller->is_required_login;
 $type = $controller->type;
 if ($is_required_login) {
     if (!isset($_SESSION['admin']) && $type == BACK_END) {
-        header('location: /?controller=authBE&action=login');
+        header('location: ' . DOMAIN . '/?controller=authBE&action=login');
     }
     if (!isset($_SESSION['user']) && $type == FRONT_END) {
-        header('location: /?controller=authFE&action=login');
+        header('location:' . DOMAIN . ' /?controller=authFE&action=login');
     }
 }
 

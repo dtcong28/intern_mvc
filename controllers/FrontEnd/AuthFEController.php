@@ -18,9 +18,7 @@ class AuthFEController extends BaseController
     public function login()
     {
         if(isset($_SESSION['user'])) {
-            // var_dump('1');
-            // exit;
-            $this->redirect(DOMAIN.'/?controller=userFE&action=profile');
+            $this->redirect(DOMAIN.'?controller=userFE&action=profile');
         }
         if (!empty($_POST)) {
             $email = $_POST['email'];

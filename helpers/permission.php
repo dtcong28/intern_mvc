@@ -22,7 +22,6 @@ if (isset($_SESSION["admin"])) {
             }
         } else {
             if (!in_array($_GET['controller'], $superAdmin)) {
-
                 echo NO_PERMISSION . "<br>";
                 echo "<a href='javascript:history.back()'> " . BACK . "</a>";
                 exit();
@@ -30,7 +29,8 @@ if (isset($_SESSION["admin"])) {
         }
     }
 } else if (isset($_SESSION["user"])) {
-    if (!in_array($_GET['controller'], $user)) {
+    $controller = isset($_GET['controller']) ? $_GET['controller'] : 'authFE';
+    if (!in_array($controller, $user)) {
         echo NO_PERMISSION . "<br>";
         echo "<a href='javascript:history.back()'>" . BACK . "</a>";
         exit();

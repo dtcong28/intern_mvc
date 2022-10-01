@@ -32,4 +32,4 @@ define('BACK_END', 'BE');
 define('FRONT_END', 'FE');
 
 // define('DOMAIN', 'http://localhost/training_project_mvc');
-define('DOMAIN', 'https://de7a-14-248-83-33.jp.ngrok.io/training_project_mvc');
+define('DOMAIN', 'https://e9bc-14-248-83-33.ap.ngrok.io/training_project_mvc');

@@ -15,7 +15,7 @@
                 <input type="hidden" name="order" value="asc">
             </div>
             <div class="row">
-                <button type="reset" class="btn btn-secondary col-1">Reset</button>
+                <a class="btn btn-secondary" href="<?php echo DOMAIN ?>/?controller=admin&action=search">Reset</a>
                 <div class="col-10"></div>
                 <button type="search" class="btn btn-primary col-1">Search</button>
             </div>

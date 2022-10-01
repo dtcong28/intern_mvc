@@ -53,7 +53,7 @@ class UserController extends BaseController
 
                     Session::msg(UPDATE_SUCCESSFUL, 'success');
                     unset($_SESSION['dataInput']);
-                    $this->redirect(DOMAIN.'/?controller=user&action=search');
+                    $this->redirect(DOMAIN.'/?controller=user&action=search&searchEmail=&searchName=&page=1&column=id&order=asc');
                 } else {
                     // check sai se load lai url cu 
                     $this->redirect($_SERVER['REQUEST_URI']);
@@ -66,7 +66,7 @@ class UserController extends BaseController
             if (isset($_SESSION['admin'])) {
                 Session::msg(NO_DATA, 'warning');
             }
-            $this->redirect(DOMAIN.'/?controller=user&action=search');
+            $this->redirect(DOMAIN.'/?controller=user&action=search&searchEmail=&searchName=&page=1&column=id&order=asc');
         }
     }
 

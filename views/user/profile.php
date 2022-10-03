@@ -1,4 +1,4 @@
-<button type="button" class="btn btn-dark"><a href="<?php echo DOMAIN?>/?controller=authFE&action=logout" style="text-decoration: none; color:white">Logout</a></button>
+<a class="btn btn-secondary" href="<?php echo DOMAIN?>/?controller=authFE&action=logout" style="text-decoration: none; color:white">Logout</a>
 <div class="row">
     <div class="col-md-8 offset-md-2">
         <h2>My profile</h2>

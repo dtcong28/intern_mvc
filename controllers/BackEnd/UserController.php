@@ -83,7 +83,7 @@ class UserController extends BaseController
         } else {
             Session::msg(NO_DATA, 'warning');
         }
-        $this->redirect(DOMAIN.'/?controller=user&action=search');
+        $this->redirect(DOMAIN.'/?controller=user&action=search&searchEmail=&searchName=&page=1&column=id&order=asc');
     }
 
     public function search()

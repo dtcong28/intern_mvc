@@ -17,8 +17,8 @@ class AuthFEController extends BaseController
 
     public function login()
     {
-        if(isset($_SESSION['user'])) {
-            $this->redirect(DOMAIN.'?controller=userFE&action=profile');
+        if (isset($_SESSION['user'])) {
+            $this->redirect(DOMAIN . '?controller=userFE&action=profile');
         }
         if (!empty($_POST)) {
             $email = $_POST['email'];
@@ -53,16 +53,16 @@ class AuthFEController extends BaseController
                     $this->token->update($dataToken, ['account_name' => $email]);
                 }
 
-                $this->redirect(DOMAIN.'/?controller=userFE&action=profile');
+                $this->redirect(DOMAIN . '/?controller=userFE&action=profile');
             } elseif (empty($_POST['email']) || empty($_POST['password'])) {
                 $_SESSION['errLogin']['err'] = ERROR_LOGIN_EMAIL;
-                $this->redirect(DOMAIN.'/?controller=authFE&action=login');
+                $this->redirect(DOMAIN . '/?controller=authFE&action=login');
             } else {
                 $_SESSION['errLogin']['err'] = ERROR_LOGIN_PASS;
-                $this->redirect(DOMAIN.'/?controller=authFE&action=login');
+                $this->redirect(DOMAIN . '/?controller=authFE&action=login');
             }
         } else {
-            
+
             $fb = new Facebook\Facebook([
                 'app_id' => APP_ID,
                 'app_secret' => APP_SECRET,
@@ -71,7 +71,7 @@ class AuthFEController extends BaseController
             $helper = $fb->getRedirectLoginHelper();
 
             $permission = ['email'];
-            $loginUrl = $helper->getLoginUrl( DOMAIN.'/?controller=userFE&action=create', $permission);
+            $loginUrl = $helper->getLoginUrl(DOMAIN . '/?controller=userFE&action=create', $permission);
 
             $this->renderNoMenu('login', ['loginUrl' => $loginUrl], 'User-Login');
         }
@@ -80,6 +80,6 @@ class AuthFEController extends BaseController
     public function logout()
     {
         unset($_SESSION["user"]);
-        header('location: '.DOMAIN.'/?controller=authFE&action=login');
+        header('location: ' . DOMAIN . '/?controller=authFE&action=login');
     }
 }

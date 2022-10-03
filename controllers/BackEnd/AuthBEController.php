@@ -19,8 +19,8 @@ class AuthBEController extends BaseController
 
     public function login()
     {
-        if(isset($_SESSION['admin'])) {
-            $this->redirect(DOMAIN.'/?controller=admin&action=search&searchEmail=&searchName=&page=1&column=id&order=asc');
+        if (isset($_SESSION['admin'])) {
+            $this->redirect(DOMAIN . '/?controller=admin&action=search&searchEmail=&searchName=&page=1&column=id&order=asc');
         }
         if (!empty($_POST)) {
             $email = $_POST['email'];
@@ -53,16 +53,16 @@ class AuthBEController extends BaseController
                 }
 
                 if ($dataGetByEmailPass->role_type == SUPER_ADMIN) {
-                    $this->redirect(DOMAIN.'/?controller=admin&action=search&searchEmail=&searchName=&page=1&column=id&order=asc');
+                    $this->redirect(DOMAIN . '/?controller=admin&action=search&searchEmail=&searchName=&page=1&column=id&order=asc');
                 } else {
-                    $this->redirect(DOMAIN.'/?controller=user&action=search&searchEmail=&searchName=&page=1&column=id&order=asc');
+                    $this->redirect(DOMAIN . '/?controller=user&action=search&searchEmail=&searchName=&page=1&column=id&order=asc');
                 }
             } elseif (empty($_POST['email']) || empty($_POST['password'])) {
                 $_SESSION['errLogin']['err'] = ERROR_LOGIN_EMAIL;
-                $this->redirect(DOMAIN.'/?controller=authBE&action=login');
+                $this->redirect(DOMAIN . '/?controller=authBE&action=login');
             } else {
                 $_SESSION['errLogin']['err'] = ERROR_LOGIN_PASS;
-                $this->redirect(DOMAIN.'/?controller=authBE&action=login');
+                $this->redirect(DOMAIN . '/?controller=authBE&action=login');
             }
         } else {
             $this->renderNoMenu('login', [], $title = 'Admin-Login');
@@ -72,6 +72,6 @@ class AuthBEController extends BaseController
     public function logout()
     {
         unset($_SESSION["admin"]);
-        $this->redirect(DOMAIN.'/?controller=authBE&action=login');
+        $this->redirect(DOMAIN . '/?controller=authBE&action=login');
     }
 }

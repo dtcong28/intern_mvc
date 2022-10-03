@@ -186,6 +186,6 @@ class AdminController extends BaseController
         } else {
             Session::msg(NO_DATA, 'warning');
         }
-        $this->redirect(DOMAIN . '/?controller=admin&action=search');
+        $this->redirect(DOMAIN . '/?controller=admin&action=search&searchEmail=&searchName=&page=1&column=id&order=asc');
     }
 }
